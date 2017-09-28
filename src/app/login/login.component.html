@@ -3,17 +3,27 @@
         <div class="col-md-4 push-md-4">
             <img src="assets/images/logo.png" width="150px" class="user-avatar" />
             <h1>SB Admin BS4 Angular4</h1>
-            <form role="form">
+            <form role="form" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
                 <div class="form-content">
                     <div class="form-group">
-                        <input type="text" ng-model="name" class="form-control input-underline input-lg" id="" placeholder="Email">
+                        <input type="text" required  #username="ngModel" [(ngModel)]="model.username" name="username" class="form-control input-underline input-lg" id="" placeholder="Email">
+                         <div [hidden]="username.valid || username.pristine"
+                        class="alert alert-danger">
+                                username is required
+                    </div>
                     </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">
+                        <input type="password" required #password="ngModel" [(ngModel)]="model.password" name="password" class="form-control input-underline input-lg" id="" placeholder="Password">
+                        <div [hidden]="password.valid || password.pristine"
+                           class="alert alert-danger">
+                         password is required
+                    </div>
                     </div>
                 </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()"> Log in </a>
+                 <!--<button type="button" class="btn btn-default" (click)=" signupForm.reset()">New Hero</button>-->
+                 <button  [disabled]="!loginForm.form.valid" class="btn rounded-btn" type="submit"> Log in </button>
+                <!--<a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()"> Log in </a>-->
                 &nbsp;
                 <a class="btn rounded-btn" [routerLink]="['/signup']">Register</a>
             </form>

@@ -2,14 +2,14 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import {Injectable} from '@angular/core';
-import {Http, URLSearchParams, Jsonp, RequestOptions} from '@angular/http';
+import {Http, URLSearchParams, Jsonp, RequestOptions, Headers} from '@angular/http';
 
 import {Api} from '../api/api';
 
-import {IAccountInfo} from "../../interfaces/interfaces";
+// import {IAccountInfo} from "../../interfaces/interfaces";
 
 import {JwtHelper} from "angular2-jwt";
-import {Storage} from "@ionic/storage";
+
 interface IUserProfile {
   "password": "Y81gfTYhzdWu8Suqu63KysteSmxAVlxZTYPglJGnHbYnTqlwgb9Ly9vSkgpFl7fd1ziDBCxlBSzpL9Inc36Qmw==",
   "email": "kollias1@fsu.gr",
@@ -57,7 +57,7 @@ export class User implements  IUser{
   token: string;
   jwtHelper = new JwtHelper();
 
-  constructor(public http: Http, public api: Api, private jsonp: Jsonp, public storage: Storage) {
+  constructor(public http: Http, public api: Api) {
   }
 
   search(term: string) {
@@ -65,7 +65,7 @@ export class User implements  IUser{
     search.set('action', 'opensearch');
     search.set('search', term);
     search.set('format', 'json');
-    return this.jsonp
+    return this.http
       .get('http://en.wikipedia.org/w/api.php?callback=JSONP_CALLBACK', {search})
       .map((response) => response.json()[1]);
   }
@@ -141,6 +141,7 @@ export class User implements  IUser{
 
     return seq;
   }
+  
   /**
    * Send a POST request to our login endpoint with the data
    * the user entered on the form.
@@ -177,7 +178,7 @@ export class User implements  IUser{
    * Send a POST request to our signup endpoint with the data
    * the user entered on the form.
    */
-  signup(accountInfo: IAccountInfo) {
+  signup(accountInfo) {
     let seq = this.api.post('gocore/user/create/guide', accountInfo).share();
 
     seq
@@ -196,7 +197,7 @@ export class User implements  IUser{
 
   getProfile(token) {
     let headers = new Headers({ 'Authorization': 'Bearer ' + this.token });
-    let options = new RequestOptions(headers);
+    let options = new RequestOptions();
     let seq = this.api.get('gocore/user/private/info', '', options).share();
 
     seq
@@ -215,7 +216,8 @@ export class User implements  IUser{
 
   updateProfile(profile: IUserProfile) {
     let headers = new Headers({ 'Authorization': 'Bearer ' + this.token });
-    let options = new RequestOptions(headers);
+    let options = new RequestOptions();
+    
     let seq = this.api.post('gocore/user/update/guide', profile, options).share();
 
     seq
@@ -233,10 +235,15 @@ export class User implements  IUser{
   }
 
   updateAvatar(avatar) {
-    let headers = new Headers({ 'Authorization': 'Bearer ' + this.token });
-    let options = new RequestOptions(headers);
+    // let headers = new Headers({ 'Authorization': 'Bearer ' + this.token });
+    // let options = new RequestOptions();
+
+    let headers = new Headers();
+    let requestOptions = new RequestOptions({ headers: headers });
+
+    headers.append('Authorization', 'Bearer ' + this.token);  
     let req = { "contentType": "image/png","fileData": avatar};
-    let seq = this.api.post('gocore/user/upload/avatar', req , options).share();
+    let seq = this.api.post('gocore/user/upload/avatar', req , requestOptions).share();
 
     seq
       .map(res => res.json())
@@ -269,8 +276,8 @@ export class User implements  IUser{
   authSuccess(token) {
     // this.error = null;
     console.log(token);
-    this.storage.set('token', token);
+    localStorage.setItem('token', token);
     this._user = this.jwtHelper.decodeToken(token);
-    this.storage.set('profile', this._user);
+    localStorage.setItem('profile', this._user.toString());
   }
 }
