@@ -32,10 +32,10 @@ export class LoginComponent implements OnInit {
   constructor(public router: Router, public user: User,
     public toastr: ToastsManager,
     vcr: ViewContainerRef
- 
+
   ) {
     this.toastr.setRootViewContainerRef(vcr);
-   
+
   }
 
   ngOnInit() {
@@ -55,16 +55,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(form: NgForm) {
-    console.log("forms", form.value);
-    console.log(this.name, this.model)
-    this.user.login(this.model)
     this.doLogin(this.model);
-    
-
-
-this.router.navigateByUrl('/login');
-
-    // ...
+    this.router.navigateByUrl('/login');
   }
 
   doLogin(user: Login) {
@@ -75,14 +67,12 @@ this.router.navigateByUrl('/login');
 
       if (resp) {
         this.token = resp;
-        console.log(this.jwtHelper.decodeToken(resp._body));
         this.user.token = resp._body;
         this.router.navigate(['/dashboard']);
         localStorage.setItem('isLoggedin', 'true');
 
         //localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
       }
-      this.user.getProfile(this.token).subscribe( res => console.log(res))
 
       //    loading.dismissAll();
     }, (err: any) => {

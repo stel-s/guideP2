@@ -54,10 +54,14 @@ interface IUser {
 @Injectable()
 export class User implements  IUser{
   _user: IUser;
+  profile: any;
   token: string;
   jwtHelper = new JwtHelper();
 
   constructor(public http: Http, public api: Api) {
+      this.token = localStorage.getItem('token');
+      console.log('constructor', this.token)
+
   }
 
   search(term: string) {
@@ -141,7 +145,7 @@ export class User implements  IUser{
 
     return seq;
   }
-  
+
   /**
    * Send a POST request to our login endpoint with the data
    * the user entered on the form.
@@ -157,7 +161,8 @@ export class User implements  IUser{
           console.log(this.jwtHelper.decodeToken(res._body));
           this.authSuccess(res._body);
           this.token = res._body;
-          this.getProfile(this.token).subscribe(res => console.log(res));
+          this.getProfile().subscribe(res => this.profile = res.json());
+          console.log(this.profile)
           //localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
 
         }
@@ -195,14 +200,30 @@ export class User implements  IUser{
     return seq;
   }
 
-  getProfile(token) {
-    let headers = new Headers({ 'Authorization': 'Bearer ' + this.token });
-    let options = new RequestOptions();
-    let seq = this.api.get('gocore/user/private/info', '', options).share();
+  getProfile() {
+
+      let options = new RequestOptions();
+      let myHeaders = new Headers();
+      myHeaders.append('Authorization', 'Bearer ' + this.token );
+      myHeaders.get('Content-Type')
+
+      options.headers = myHeaders;
+
+
+      // should return 'text/xml'
+      // fetch('https://147.102.23.230:8449/gocore/user/private/info', {
+      //     method: 'get',
+      //     headers: {
+      //         'Authorization': 'Bearer '+ this.token,
+      //         'Content-Type': 'application/json'
+      //     }
+      // }).then((res)=>console.log(res.json()));
+    let seq = this.api.get('gocore/user/private/info', '',  options).share();
 
     seq
-      .map(res => res.json())
+      .map((res:any)=> JSON.parse(res._body))
       .subscribe(res => {
+          console.log(res)
         // If the API returned a successful response, mark the user as logged in
         if (res.status == 'success') {
           this._loggedIn(res);
@@ -215,10 +236,13 @@ export class User implements  IUser{
   }
 
   updateProfile(profile: IUserProfile) {
-    let headers = new Headers({ 'Authorization': 'Bearer ' + this.token });
-    let options = new RequestOptions();
-    
-    let seq = this.api.post('gocore/user/update/guide', profile, options).share();
+      let options = new RequestOptions();
+      let myHeaders = new Headers();
+      myHeaders.append('Authorization', 'Bearer ' + this.token );
+      myHeaders.get('Content-Type');
+
+
+      let seq = this.api.post('gocore/user/update/guide', profile, options).share();
 
     seq
       .map(res => res.json())
@@ -235,15 +259,13 @@ export class User implements  IUser{
   }
 
   updateAvatar(avatar) {
-    // let headers = new Headers({ 'Authorization': 'Bearer ' + this.token });
-    // let options = new RequestOptions();
+      let options = new RequestOptions();
+      let myHeaders = new Headers();
+      myHeaders.append('Authorization', 'Bearer ' + this.token );
+      myHeaders.get('Content-Type');
 
-    let headers = new Headers();
-    let requestOptions = new RequestOptions({ headers: headers });
-
-    headers.append('Authorization', 'Bearer ' + this.token);  
     let req = { "contentType": "image/png","fileData": avatar};
-    let seq = this.api.post('gocore/user/upload/avatar', req , requestOptions).share();
+    let seq = this.api.post('gocore/user/upload/avatar', req , options).share();
 
     seq
       .map(res => res.json())

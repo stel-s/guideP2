@@ -30,7 +30,7 @@ export class Api {
       options.search = !options.search && p || options.search;
     }
 
-    return this.http.get(this.url + '/' + endpoint, options);
+      return this.http.get(this.url + '/' + endpoint, options);
   }
 
   post(endpoint: string, body: any, options?: RequestOptions) {

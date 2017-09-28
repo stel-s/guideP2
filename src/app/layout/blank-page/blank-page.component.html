@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-lg-6">
+        <input type="file" ng2FileSelect [uploader]="upload" multiple formControlName="file" id="file"/>
+        <input type="file" #fileInput placeholder="Upload file..." />
+        <button type="button" (click)="upload()">Upload</button>
+        <form role="form" (ngSubmit)="login(loginForm)">
+
+            <div class="form-content">
+                <div class="form-group">
+                    <input type="text" required  name="username" class="form-control input-underline input-lg" id="" placeholder="ΑΦΜ">
+                    <!--<div [hidden]="username.valid || username.pristine"-->
+                         <!--class="alert alert-danger">-->
+                        <!--username is required-->
+                    <!--</div>-->
+                </div>
+
+                <div class="form-group">
+                    <input type="password" required  name="password" class="form-control input-underline input-lg" id="" placeholder="AMKA">
+                    <!--<div [hidden]="password.valid || password.pristine"-->
+                         <!--class="alert alert-danger">-->
+                        <!--password is required-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <!--<button type="button" class="btn btn-default" (click)=" signupForm.reset()">New Hero</button>-->
+            <button class="btn rounded-btn" type="submit"> Log in </button>
+            <!--<a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()"> Log in </a>-->
+            &nbsp;
+            <a class="btn rounded-btn" [routerLink]="['/signup']">Register</a>
+        </form>
+    </div>
+    </div>
