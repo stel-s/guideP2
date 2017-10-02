@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,13 +8,86 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
-
+import {
+    MdAutocompleteModule,
+    MdButtonModule,
+    MdButtonToggleModule,
+    MdCardModule,
+    MdCheckboxModule,
+    MdChipsModule,
+    MdDatepickerModule,
+    MdDialogModule,
+    MdExpansionModule,
+    MdGridListModule,
+    MdIconModule,
+    MdInputModule,
+    MdListModule,
+    MdMenuModule,
+    MdNativeDateModule,
+    MdPaginatorModule,
+    MdProgressBarModule,
+    MdProgressSpinnerModule,
+    MdRadioModule,
+    MdRippleModule,
+    MdSelectModule,
+    MdSidenavModule,
+    MdSliderModule,
+    MdSlideToggleModule,
+    MdSnackBarModule,
+    MdSortModule,
+    MdTableModule,
+    MdTabsModule,
+    MdToolbarModule,
+    MdTooltipModule,
+    MdStepperModule,
+} from '@angular/material';
 ////
 import { Settings } from './providers/providers';
 import { User } from './providers/providers';
-import { Api } from './providers/providers';  
+import { Api } from './providers/providers';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { UsernameValidator } from './validators/userNameValidator'
+
+import {CdkTableModule} from '@angular/cdk/table';
+
+@NgModule({
+    exports: [
+        CdkTableModule,
+        MdAutocompleteModule,
+        MdButtonModule,
+        MdButtonToggleModule,
+        MdCardModule,
+        MdCheckboxModule,
+        MdChipsModule,
+        MdStepperModule,
+        MdDatepickerModule,
+        MdDialogModule,
+        MdExpansionModule,
+        MdGridListModule,
+        MdIconModule,
+        MdInputModule,
+        MdListModule,
+        MdMenuModule,
+        MdNativeDateModule,
+        MdPaginatorModule,
+        MdProgressBarModule,
+        MdProgressSpinnerModule,
+        MdRadioModule,
+        MdRippleModule,
+        MdSelectModule,
+        MdSidenavModule,
+        MdSliderModule,
+        MdSlideToggleModule,
+        MdSnackBarModule,
+        MdSortModule,
+        MdTableModule,
+        MdTabsModule,
+        MdToolbarModule,
+        MdTooltipModule,
+    ]
+})
+export class PlunkerMaterialModule {}
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
     // for development
@@ -26,12 +99,15 @@ export function HttpLoaderFactory(http: Http) {
         AppComponent
     ],
     imports: [
-         ToastModule.forRoot(),
-        BrowserModule,
+        PlunkerMaterialModule,
+
         BrowserAnimationsModule,
+        ToastModule.forRoot(),
+        BrowserModule,
         FormsModule,
         HttpModule,
         AppRoutingModule,
+        ReactiveFormsModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -42,9 +118,9 @@ export function HttpLoaderFactory(http: Http) {
     ],
     providers: [AuthGuard,
           Api,
-   
+
     User,
-   
+
     UsernameValidator,
     ],
     bootstrap: [AppComponent]

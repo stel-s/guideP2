@@ -28,7 +28,12 @@ export class HeaderComponent implements OnInit {
         this.user.getProfile().subscribe((res: any) => {
             this.profile = JSON.parse(res._body);
             console.log(this.profile);
-        } );
+        },(err) => {
+                if (err.statusText === 'Unauthorized') {
+                    this.router.navigateByUrl('/login');
+                }
+            }
+        );
     }
 
     isToggled(): boolean {

@@ -3,39 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/debounce';
 import { FormsModule }   from '@angular/forms';
-import {
-    MdAutocompleteModule,
-        MdButtonModule,
-        MdButtonToggleModule,
-        MdCardModule,
-        MdCheckboxModule,
-        MdChipsModule,
-        MdDatepickerModule,
-        MdDialogModule,
-        MdExpansionModule,
-        MdGridListModule,
-        MdIconModule,
-        MdInputModule,
-        MdListModule,
-        MdMenuModule,
-        MdNativeDateModule,
-        MdPaginatorModule,
-        MdProgressBarModule,
-        MdProgressSpinnerModule,
-        MdRadioModule,
-        MdRippleModule,
-        MdSelectModule,
-        MdSidenavModule,
-        MdSliderModule,
-        MdSlideToggleModule,
-        MdSnackBarModule,
-        MdSortModule,
-        MdTableModule,
-        MdTabsModule,
-        MdToolbarModule,
-        MdTooltipModule,
-        MdStepperModule,
-} from '@angular/material';
+
 import { routerTransition } from '../../router.animations';
 import { NgForm } from '@angular/forms';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -57,13 +25,13 @@ export class Profile {
 }
 
 @Component({
-    selector: 'app-blank-page',
-    templateUrl: './blank-page.component.html',
-    styleUrls: ['./blank-page.component.scss']
+    selector: 'new-client',
+    templateUrl: './new-client.component.html',
+    styleUrls: ['./new-client.component.scss']
 })
 
 
-export class BlankPageComponent implements OnInit {
+export class NewClientComponent implements OnInit {
     model = new Profile('', '');
     @ViewChild('fileInput') fileInput;
     profile = {

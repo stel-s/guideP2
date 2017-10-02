@@ -1,6 +1,9 @@
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-
+import 'rxjs/add/operator/publishReplay';
+import 'rxjs/add/operator/publishLast';
+import 'rxjs/add/operator/catch';
+import {  Observable } from 'rxjs'
 import {Injectable} from '@angular/core';
 import {Http, URLSearchParams, Jsonp, RequestOptions, Headers} from '@angular/http';
 
@@ -54,14 +57,12 @@ interface IUser {
 @Injectable()
 export class User implements  IUser{
   _user: IUser;
-  profile: any;
+  private profile: any;
   token: string;
   jwtHelper = new JwtHelper();
 
   constructor(public http: Http, public api: Api) {
       this.token = localStorage.getItem('token');
-      console.log('constructor', this.token)
-
   }
 
   search(term: string) {
@@ -107,18 +108,18 @@ export class User implements  IUser{
 
     let seq = this.api.get(`gocore/user/isAvailable/vat/${term}`).share();
 
-    seq
-      .map(res => res.json())
-      .subscribe(res => {
-        console.log(res);
-        // If the API returned a successful response, mark the user as logged in
-        if (res.status == 'success') {
-
-        } else {
-        }
-      }, err => {
-        console.error('ERROR', err);
-      });
+    // seq
+    //   .map(res => res.json())
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     // If the API returned a successful response, mark the user as logged in
+    //     if (res.status == 'success') {
+    //
+    //     } else {
+    //     }
+    //   }, err => {
+    //     console.error('ERROR', err);
+    //   });
 
     return seq;
   }
@@ -156,17 +157,12 @@ export class User implements  IUser{
     seq
       .map(res => res)
       .subscribe((res:any) => {
-        if(res){
-
-          console.log(this.jwtHelper.decodeToken(res._body));
-          this.authSuccess(res._body);
-          this.token = res._body;
-          this.getProfile().subscribe(res => this.profile = res.json());
-          console.log(this.profile)
-          //localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
-
+        if (res) {
+            this.authSuccess(res._body);
+            this.token = res._body;
+            // this.getProfile().subscribe(res => this.profile = res.json());
+            //localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
         }
-        console.log(res)
         // If the API returned a successful response, mark the user as logged in
         // if (res.status == 'success') {
         //   this._loggedIn(res);
@@ -220,26 +216,35 @@ export class User implements  IUser{
       // }).then((res)=>console.log(res.json()));
     let seq = this.api.get('gocore/user/private/info', '',  options).share();
 
-    seq
-      .map((res:any)=> JSON.parse(res._body))
-      .subscribe(res => {
-          console.log(res)
-        // If the API returned a successful response, mark the user as logged in
-        if (res.status == 'success') {
-          this._loggedIn(res);
-        }
-      }, err => {
-        console.error('ERROR', err);
-      });
+
+
+    // seq
+    //   .map((res:any)=> JSON.parse(res._body))
+    //     .catch(e => {
+    //         if (e.status === 401) {
+    //             return Observable.throw('Unauthorized');
+    //         }
+    //         // do any other checking for statuses here
+    //     })
+    //   .subscribe(res => {
+    //     // If the API returned a successful response, mark the user as logged in
+    //     if (res.status == 'success') {
+    //       this._loggedIn(res);
+    //     }
+    //   }, err => {
+    //
+    //     console.error('ERROR', err);
+    //   });
 
     return seq;
   }
 
-  updateProfile(profile: IUserProfile) {
+  updateProfile(profile: any) {
       let options = new RequestOptions();
       let myHeaders = new Headers();
       myHeaders.append('Authorization', 'Bearer ' + this.token );
       myHeaders.get('Content-Type');
+      options.headers = myHeaders;
 
 
       let seq = this.api.post('gocore/user/update/guide', profile, options).share();
@@ -259,11 +264,11 @@ export class User implements  IUser{
   }
 
   updateAvatar(avatar) {
-      let options = new RequestOptions();
-      let myHeaders = new Headers();
-      myHeaders.append('Authorization', 'Bearer ' + this.token );
-      myHeaders.get('Content-Type');
-
+    let options = new RequestOptions();
+    let myHeaders = new Headers();
+    myHeaders.append('Authorization', 'Bearer ' + this.token );
+    myHeaders.get('Content-Type');
+    options.headers = myHeaders;
     let req = { "contentType": "image/png","fileData": avatar};
     let seq = this.api.post('gocore/user/upload/avatar', req , options).share();
 

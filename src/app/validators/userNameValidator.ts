@@ -39,7 +39,7 @@ export class UsernameValidator {
   }
    checkAFM(control: FormControl): any {
 
-    this.user.isAFMAvailable(control.value).subscribe(()=> console.log('wtf'))
+    //this.user.isAFMAvailable(control.value).subscribe(()=> console.log('wtf'))
 
     return new Promise(resolve => {
 
