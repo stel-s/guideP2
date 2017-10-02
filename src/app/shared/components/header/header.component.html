@@ -59,9 +59,10 @@
                         <!--<a href="javascript:void(0)" class="dropdown-item">View All</a>-->
                     <!--</ul>-->
                 <!--</li>-->
+                <img src="data:image/jpeg;base64,{{profile.avatar.fileData}}" alt="" class="img-thumbnail">
                 <li class="nav-item dropdown" ngbDropdown>
                     <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-                        <i class="fa fa-language"></i> {{ 'Language' | translate }} <b class="caret"></b>
+                        <i class="fa fa-language"></i> {{ '' | translate }} <b class="caret"></b>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('en')">{{ 'English' | translate }}</a>

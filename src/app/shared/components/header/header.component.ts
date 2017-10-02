@@ -10,7 +10,10 @@ import { User } from '../../../providers/providers';
 })
 export class HeaderComponent implements OnInit {
     profile = {
-        firstName:'ss'
+        firstName:'ss',
+        avatar: {
+            fileData: ''
+        }
     };
     pushRightClass: string = 'push-right';
 
@@ -25,15 +28,21 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.user.getProfile().subscribe((res: any) => {
-            this.profile = JSON.parse(res._body);
-            console.log(this.profile);
-        },(err) => {
-                if (err.statusText === 'Unauthorized') {
-                    this.router.navigateByUrl('/login');
-                }
+        this.user.x.subscribe((x:any) => {
+            if (x) {
+                this.profile = x;
             }
-        );
+
+        })
+        // this.user.getProfile().subscribe((res: any) => {
+        //     this.profile = JSON.parse(res._body);
+        //     console.log(this.profile);
+        // },(err) => {
+        //         if (err.statusText === 'Unauthorized') {
+        //             this.router.navigateByUrl('/login');
+        //         }
+        //     }
+        // );
     }
 
     isToggled(): boolean {

@@ -1,40 +1,40 @@
-import {Component, OnInit, ViewContainerRef, ViewChild, Directive} from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ViewChild, Directive } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/debounce';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import {
     MdAutocompleteModule,
-        MdButtonModule,
-        MdButtonToggleModule,
-        MdCardModule,
-        MdCheckboxModule,
-        MdChipsModule,
-        MdDatepickerModule,
-        MdDialogModule,
-        MdExpansionModule,
-        MdGridListModule,
-        MdIconModule,
-        MdInputModule,
-        MdListModule,
-        MdMenuModule,
-        MdNativeDateModule,
-        MdPaginatorModule,
-        MdProgressBarModule,
-        MdProgressSpinnerModule,
-        MdRadioModule,
-        MdRippleModule,
-        MdSelectModule,
-        MdSidenavModule,
-        MdSliderModule,
-        MdSlideToggleModule,
-        MdSnackBarModule,
-        MdSortModule,
-        MdTableModule,
-        MdTabsModule,
-        MdToolbarModule,
-        MdTooltipModule,
-        MdStepperModule,
+    MdButtonModule,
+    MdButtonToggleModule,
+    MdCardModule,
+    MdCheckboxModule,
+    MdChipsModule,
+    MdDatepickerModule,
+    MdDialogModule,
+    MdExpansionModule,
+    MdGridListModule,
+    MdIconModule,
+    MdInputModule,
+    MdListModule,
+    MdMenuModule,
+    MdNativeDateModule,
+    MdPaginatorModule,
+    MdProgressBarModule,
+    MdProgressSpinnerModule,
+    MdRadioModule,
+    MdRippleModule,
+    MdSelectModule,
+    MdSidenavModule,
+    MdSliderModule,
+    MdSlideToggleModule,
+    MdSnackBarModule,
+    MdSortModule,
+    MdTableModule,
+    MdTabsModule,
+    MdToolbarModule,
+    MdTooltipModule,
+    MdStepperModule,
 } from '@angular/material';
 import { routerTransition } from '../../router.animations';
 import { NgForm } from '@angular/forms';
@@ -78,23 +78,15 @@ export class BlankPageComponent implements OnInit {
         streetNumber: "27",
         telephone: "6977125252",
         municipality: "Dafni",
-        postcode:"17445"
+        postcode: "17445"
     }
-    hero = {name: 'Dr.'};
+    hero = { name: 'Dr.' };
     heroForm: FormGroup;
     vatNumber;
-    constructor(public user: User,  public router: Router,) {
+    constructor(public user: User, public router: Router, ) {
 
 
-        this.user.getProfile().subscribe((res: any) => {
-                // this.profile = res;
-                console.log(this.profile);
-            },(err) => {
-                if (err.statusText === 'Unauthorized') {
-                    this.router.navigateByUrl('/login');
-                }
-            }
-        );
+
     }
     update(profileForm) {
         console.log(profileForm)
@@ -107,12 +99,21 @@ export class BlankPageComponent implements OnInit {
             ]),
 
         });
-            this.heroForm.valueChanges
-                .debounceTime(1000)
-                .subscribe(data => {
-                    console.log('Form changes', data)
+        this.user.getProfile().take(1).subscribe((res: any) => {
+            // this.profile = res;
+            console.log(this.profile);
+        }, (err) => {
+            if (err.statusText === 'Unauthorized') {
+                this.router.navigateByUrl('/login');
+            }
+        }
+        );
+        this.heroForm.valueChanges
+            .debounceTime(1000)
+            .subscribe(data => {
+                console.log('Form changes', data)
 
-                })
+            })
 
     }
 
@@ -120,7 +121,7 @@ export class BlankPageComponent implements OnInit {
 
     get power() { return this.heroForm.get('power'); }
     upload() {
-        var reader  = new FileReader();
+        var reader = new FileReader();
 
         let fileBrowser = this.fileInput.nativeElement;
         if (fileBrowser.files && fileBrowser.files[0]) {
@@ -137,11 +138,11 @@ export class BlankPageComponent implements OnInit {
         }
     }
 
-        previewFile() {
+    previewFile() {
         var preview = document.querySelector('img');
-        var file: any    = document.querySelector('input[type=file]')
-            file.files[0];
-        var reader  = new FileReader();
+        var file: any = document.querySelector('input[type=file]')
+        file.files[0];
+        var reader = new FileReader();
 
         reader.addEventListener("load", function () {
             preview.src = reader.result;
@@ -151,7 +152,7 @@ export class BlankPageComponent implements OnInit {
             reader.readAsDataURL(file);
         }
     }
-    onFileChange(event){
+    onFileChange(event) {
         let files = event.target.files;
     }
     // ngOnInit() {

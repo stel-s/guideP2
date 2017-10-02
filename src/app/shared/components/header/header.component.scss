@@ -70,3 +70,16 @@ $topnav-background-color: #222;
 .header .navbar {
     background: $topnav-background-color !important;
 }
+.img-thumbnail {
+    margin-top: 2px;
+    padding: 0.25rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease-in-out;
+    /* max-width: 22%; */
+    /* height: 42px; */
+    height: 35px;
+    width: 35px;
+    border-radius: 40px;
+}

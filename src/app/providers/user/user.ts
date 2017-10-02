@@ -3,6 +3,8 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/publishLast';
 import 'rxjs/add/operator/catch';
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+
 import {  Observable } from 'rxjs'
 import {Injectable} from '@angular/core';
 import {Http, URLSearchParams, Jsonp, RequestOptions, Headers} from '@angular/http';
@@ -57,13 +59,15 @@ interface IUser {
 @Injectable()
 export class User implements  IUser{
   _user: IUser;
-  private profile: any;
+  profile: any;
   token: string;
   jwtHelper = new JwtHelper();
+   x = new BehaviorSubject<string>(null);
 
   constructor(public http: Http, public api: Api) {
       this.token = localStorage.getItem('token');
   }
+  
 
   search(term: string) {
     var search = new URLSearchParams()
@@ -106,7 +110,8 @@ export class User implements  IUser{
     //var search = new URLSearchParams()
 
 
-    let seq = this.api.get(`gocore/user/isAvailable/vat/${term}`).share();
+    let seq = this.api.get(`gocore/user/isAvailable/vat/${term}`).publishReplay(1)
+                                   .refCount();
 
     // seq
     //   .map(res => res.json())
@@ -214,27 +219,35 @@ export class User implements  IUser{
       //         'Content-Type': 'application/json'
       //     }
       // }).then((res)=>console.log(res.json()));
-    let seq = this.api.get('gocore/user/private/info', '',  options).share();
+    let seq = this.api.get('gocore/user/private/info', '',  options).take(1).share();
 
 
 
-    // seq
-    //   .map((res:any)=> JSON.parse(res._body))
-    //     .catch(e => {
-    //         if (e.status === 401) {
-    //             return Observable.throw('Unauthorized');
-    //         }
-    //         // do any other checking for statuses here
-    //     })
-    //   .subscribe(res => {
-    //     // If the API returned a successful response, mark the user as logged in
-    //     if (res.status == 'success') {
-    //       this._loggedIn(res);
-    //     }
-    //   }, err => {
-    //
-    //     console.error('ERROR', err);
-    //   });
+    seq
+      .map((res:any)=> JSON.parse(res._body))
+        .catch(e => {
+            if (e.status === 401) {
+                return Observable.throw('Unauthorized');
+            }
+            // do any other checking for statuses here
+        })
+      .subscribe(res => {
+        console.log("res,", res)
+        if(res) {
+          this.profile = res;
+          this.x.next(this.profile)
+        }
+        
+        // If the API returned a successful response, mark the user as logged in
+        if (res.status == 'success') {
+          this._loggedIn(res);
+        }
+      }, err => {
+        if (err.statusText === 'Unauthorized') {
+                      console.error('Unauthorized', err);
+               }
+        console.error('ERROR', err);
+      });
 
     return seq;
   }
@@ -246,7 +259,7 @@ export class User implements  IUser{
       myHeaders.get('Content-Type');
       options.headers = myHeaders;
 
-
+     
       let seq = this.api.post('gocore/user/update/guide', profile, options).share();
 
     seq
@@ -271,10 +284,11 @@ export class User implements  IUser{
     options.headers = myHeaders;
     let req = { "contentType": "image/png","fileData": avatar};
     let seq = this.api.post('gocore/user/upload/avatar', req , options).share();
-
+   
     seq
       .map(res => res.json())
       .subscribe(res => {
+         this.getProfile();
         // If the API returned a successful response, mark the user as logged in
         if (res.status == 'success') {
           this._loggedIn(res);
