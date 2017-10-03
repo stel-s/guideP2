@@ -7,4 +7,7 @@ import { Component, OnInit } from '@angular/core';
 export class TutorialComponent implements OnInit {
     constructor() { }
     ngOnInit() { }
+
+    open(content) {
+    }
 }

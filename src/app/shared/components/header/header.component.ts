@@ -4,6 +4,15 @@ import { TranslateService } from '@ngx-translate/core';
 import { User } from '../../../providers/providers';
 import {DomSanitizer} from '@angular/platform-browser';
 
+//////////////////END IMPORTS////////////////////////////////////////
+interface IHeaderProfile {
+    firstName: string,
+    lastName: string,
+    avatar: {
+        fileData: string,
+    }
+}
+//////////END INTERFACES////////////////////////////
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -14,8 +23,9 @@ export class HeaderComponent implements OnInit {
     @ViewChild('imgRef') img: ElementRef;
 
 
-    profile = {
+    profile: IHeaderProfile = {
         firstName: undefined,
+        lastName: undefined,
         avatar: {
             fileData: undefined
         }
