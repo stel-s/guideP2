@@ -48,6 +48,9 @@ export class ClientsComponent implements  OnInit {
                 this.dataSource.filter = this.filter.nativeElement.value;
             });
     }
+    onSubmit(f) {
+
+    }
 }
 
 /** Constants used to fill up our data base. */
