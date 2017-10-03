@@ -59,7 +59,7 @@
                         <!--<a href="javascript:void(0)" class="dropdown-item">View All</a>-->
                     <!--</ul>-->
                 <!--</li>-->
-                <img src="data:image/jpeg;base64,{{profile.avatar.fileData}}" alt="" class="img-thumbnail">
+                <img #imgRef src="data:image/jpeg;base64,{{profile.avatar.fileData}}" alt="" class="img-thumbnail">
                 <li class="nav-item dropdown" ngbDropdown>
                     <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
                         <i class="fa fa-language"></i> {{ '' | translate }} <b class="caret"></b>
@@ -71,7 +71,7 @@
                 </li>
                 <li class="nav-item dropdown" ngbDropdown>
                     <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-                        <i class="fa fa-user"></i> {{profile.firstName}} {{profile.lastName}} <b class="caret"></b>
+                        <i class="fa fa-user"></i> {{profile.firstName }} {{profile.lastName }} <b class="caret"></b>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
 

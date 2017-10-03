@@ -4,8 +4,9 @@ import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/operator/publishLast';
 import 'rxjs/add/operator/catch';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Router, NavigationEnd } from '@angular/router';
 
-import {  Observable } from 'rxjs'
+import {Observable, Subject} from 'rxjs'
 import {Injectable} from '@angular/core';
 import {Http, URLSearchParams, Jsonp, RequestOptions, Headers} from '@angular/http';
 
@@ -16,58 +17,43 @@ import {Api} from '../api/api';
 import {JwtHelper} from "angular2-jwt";
 
 interface IUserProfile {
-  "password": "Y81gfTYhzdWu8Suqu63KysteSmxAVlxZTYPglJGnHbYnTqlwgb9Ly9vSkgpFl7fd1ziDBCxlBSzpL9Inc36Qmw==",
-  "email": "kollias1@fsu.gr",
-  "guideNumber": "152651186",
-  "vatNumber": "12345678229",
-  "amka": "22222112",
-  "amIKA": "12313323123",
-  "streetNumber": "27",
-  "postcode": "17445",
-  "telephone": "6977125252",
-  "street": "kapou",
-  "municipality": "Dafni",
-  "lastName": "Kollias21",
-  "firstName": "Spyros1",
-  "uuid": "41926a70-2ccb-438f-b8f3-d7552d0b98ce",
-  "username": "kollias1@fsu.gr",
-  "ableToInsertInvoices": true
+    "password": "Y81gfTYhzdWu8Suqu63KysteSmxAVlxZTYPglJGnHbYnTqlwgb9Ly9vSkgpFl7fd1ziDBCxlBSzpL9Inc36Qmw==",
+    "email": "kollias1@fsu.gr",
+    "guideNumber": "152651186",
+    "vatNumber": "12345678229",
+    "amka": "22222112",
+    "amIKA": "12313323123",
+    "streetNumber": "27",
+    "postcode": "17445",
+    "telephone": "6977125252",
+    "street": "kapou",
+    "municipality": "Dafni",
+    "lastName": "Kollias21",
+    "firstName": "Spyros1",
+    "uuid": "41926a70-2ccb-438f-b8f3-d7552d0b98ce",
+    "username": "kollias1@fsu.gr",
+    "ableToInsertInvoices": true
 }
 interface IUser {
   firstName?: string;
   lastName?: string;
 }
-/**
- * Most apps have the concept of a User. This is a simple provider
- * with stubs for login/signup/etc.
- *
- * This User provider makes calls to our API at the `login` and `signup` endpoints.
- *
- * By default, it expects `login` and `signup` to return a JSON object of the shape:
- *
- * ```json
- * {
- *   status: 'success',
- *   user: {
- *     // User fields your app needs, like "id", "name", "email", etc.
- *   }
- * }
- * ```
- *
- * If the `status` field is not `success`, then an error is detected and returned.
- */
+
 @Injectable()
-export class User implements  IUser{
+export class User {
   _user: IUser;
   profile: any;
   token: string;
   jwtHelper = new JwtHelper();
-   x = new BehaviorSubject<string>(null);
+  currentUser: Subject<IUser> = new BehaviorSubject<User>(null);
 
-  constructor(public http: Http, public api: Api) {
+  constructor(public http: Http, public api: Api, public router: Router) {
       this.token = localStorage.getItem('token');
   }
-  
+  public setCurrentUser(newUser:any): void {
+      this.currentUser.next(newUser);
+  }
+
 
   search(term: string) {
     var search = new URLSearchParams()
@@ -219,7 +205,7 @@ export class User implements  IUser{
       //         'Content-Type': 'application/json'
       //     }
       // }).then((res)=>console.log(res.json()));
-    let seq = this.api.get('gocore/user/private/info', '',  options).take(1).share();
+    let seq = this.api.get('gocore/user/private/info', '',  options);
 
 
 
@@ -235,43 +221,45 @@ export class User implements  IUser{
         console.log("res,", res)
         if(res) {
           this.profile = res;
-          this.x.next(this.profile)
+          this.currentUser.next(this.profile)
         }
-        
+
         // If the API returned a successful response, mark the user as logged in
         if (res.status == 'success') {
           this._loggedIn(res);
         }
       }, err => {
         if (err.statusText === 'Unauthorized') {
+            this.router.navigate(['/login']);
                       console.error('Unauthorized', err);
                }
         console.error('ERROR', err);
       });
 
-    return seq;
+   return seq.map((res:any) => JSON.parse(res._body));
   }
 
   updateProfile(profile: any) {
+      console.log(profile)
       let options = new RequestOptions();
       let myHeaders = new Headers();
       myHeaders.append('Authorization', 'Bearer ' + this.token );
       myHeaders.get('Content-Type');
       options.headers = myHeaders;
 
-     
+
       let seq = this.api.post('gocore/user/update/guide', profile, options).share();
 
-    seq
-      .map(res => res.json())
-      .subscribe(res => {
-        // If the API returned a successful response, mark the user as logged in
-        if (res.status == 'success') {
-          this._loggedIn(res);
-        }
-      }, err => {
-        console.error('ERROR', err);
-      });
+    // seq
+    //   .map(res => res)
+    //   .subscribe(res => {
+    //     // If the API returned a successful response, mark the user as logged in
+    //   //   if (res.status == 'success') {
+    //   //     this._loggedIn(res);
+    //   //   }
+    //   // }, err => {
+    //   //   console.error('ERROR', err);
+    //   });
 
     return seq;
   }
@@ -284,7 +272,7 @@ export class User implements  IUser{
     options.headers = myHeaders;
     let req = { "contentType": "image/png","fileData": avatar};
     let seq = this.api.post('gocore/user/upload/avatar', req , options).share();
-   
+
     seq
       .map(res => res.json())
       .subscribe(res => {

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from '../../../providers/providers';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-header',
@@ -9,12 +10,17 @@ import { User } from '../../../providers/providers';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+    @ViewChild('imgRef') img: ElementRef;
+
+
     profile = {
-        firstName:'ss',
+        firstName: undefined,
         avatar: {
-            fileData: ''
+            fileData: undefined
         }
     };
+
     pushRightClass: string = 'push-right';
 
     constructor(private translate: TranslateService, public router: Router, public user: User,) {
@@ -28,21 +34,13 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.user.x.subscribe((x:any) => {
+        this.user.currentUser.subscribe((x:any) => {
             if (x) {
-                this.profile = x;
+                this.profile = Object.assign({},this.profile,x);
             }
-
         })
-        // this.user.getProfile().subscribe((res: any) => {
-        //     this.profile = JSON.parse(res._body);
-        //     console.log(this.profile);
-        // },(err) => {
-        //         if (err.statusText === 'Unauthorized') {
-        //             this.router.navigateByUrl('/login');
-        //         }
-        //     }
-        // );
+
+        this.user.getProfile().subscribe((res => this.profile = res));
     }
 
     isToggled(): boolean {

@@ -36,6 +36,15 @@ import { PageHeaderModule } from '../../shared';
         ButtonsComponent,
         AlertComponent,
         ModalComponent,
+        CollapseComponent,
+        DatePickerComponent,
+        DropdownComponent,
+        PaginationComponent,
+        PopOverComponent,
+        ProgressbarComponent,
+        TabsComponent,
+        TooltipComponent,
+        TimepickerComponent,
 
     ]
 })

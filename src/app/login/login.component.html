@@ -8,9 +8,9 @@
                     <div class="form-group">
                         <input type="text" required  #username="ngModel" [(ngModel)]="model.username" name="username" class="form-control input-underline input-lg" id="" placeholder="Email">
                          <div [hidden]="username.valid || username.pristine"
-                        class="alert alert-danger">
+                                class="alert alert-danger">
                                 username is required
-                    </div>
+                         </div>
                     </div>
 
                     <div class="form-group">

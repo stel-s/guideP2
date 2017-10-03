@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/debounce';
 import { FormsModule } from '@angular/forms';
+
 import {
     MdAutocompleteModule,
     MdButtonModule,
@@ -36,22 +37,46 @@ import {
     MdTooltipModule,
     MdStepperModule,
 } from '@angular/material';
+
 import { routerTransition } from '../../router.animations';
+
 import { NgForm } from '@angular/forms';
+
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { JwtHelper } from "angular2-jwt";
-import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { FileSelectDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+
 ////Providers/////
 import { User } from '../../providers/providers';
 //////END///////
-
+interface profile1 {
+    guideNumber: string;
+    amka: string;
+    vatNumber: string;
+    amIKA: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    street: string;
+    streetNumber: string;
+    telephone: string;
+    municipality: string;
+    postcode: string;
+}
 export class Profile {
 
     constructor(
         public username: string,
         public password: string,
-
+        public guideNumber?: string,
+         amka?: string,
+        vatNumber?: string,
+        amIKA?: string,
+        public firstName?: string,
+        lastName?: string,
+        street?: string,
+        streetNumber?: string,
+        telephone?: string,
+        municipality?: string,
+        postcode?: string,
     ) { }
 
 }
@@ -64,33 +89,39 @@ export class Profile {
 
 
 export class BlankPageComponent implements OnInit {
-    model = new Profile('', '');
+    profile;
     @ViewChild('fileInput') fileInput;
-    profile = {
-        guideNumber: "152651186",
-        amka: "125828069",
-        vatNumber: "125828069",
-        amIKA: "125828069",
-        firstName: "Spyros1",
-        lastName: "Kollias1",
-        username: "spykoaaaaa",
-        street: "kapou",
-        streetNumber: "27",
-        telephone: "6977125252",
-        municipality: "Dafni",
-        postcode: "17445"
-    }
+    avatarPreviewSrc: any;
+
     hero = { name: 'Dr.' };
     heroForm: FormGroup;
-    vatNumber;
-    constructor(public user: User, public router: Router, ) {
-
-
+    constructor(public user: User,
+                public router: Router,
+                public toastr: ToastsManager,
+                vcr: ViewContainerRef
+    ) {
+        this.toastr.setRootViewContainerRef(vcr);
 
     }
     update(profileForm) {
-        console.log(profileForm)
-        this.user.updateProfile(profileForm).subscribe();
+        let payload = profileForm.form.value;
+        console.log(profileForm.form.value)
+        let obj = {
+            "guideNumber": "123456789",
+            "amka": "22222112",
+            "username": "stel",
+            "street": "kapou",
+            "streetNumber": "27",
+            "telephone": "6977125252",
+            "municipality": "Dafni",
+            "postcode":"17445"
+        }
+         payload = Object.assign({},payload,obj);
+        this.user.updateProfile(payload).subscribe((res => {
+            this.toastr.success('Profile', 'Saved!');
+            console.log(res)
+            this.user.currentUser.next({firstName: payload.firstName, lastName: payload.lastName})
+        }));
     }
 
     ngOnInit(): void {
@@ -100,12 +131,9 @@ export class BlankPageComponent implements OnInit {
 
         });
         this.user.getProfile().take(1).subscribe((res: any) => {
-            // this.profile = res;
-            console.log(this.profile);
+            this.profile = res
         }, (err) => {
-            if (err.statusText === 'Unauthorized') {
-                this.router.navigateByUrl('/login');
-            }
+
         }
         );
         this.heroForm.valueChanges
@@ -120,6 +148,7 @@ export class BlankPageComponent implements OnInit {
     get name() { return this.heroForm.get('name'); }
 
     get power() { return this.heroForm.get('power'); }
+
     upload() {
         var reader = new FileReader();
 
@@ -128,13 +157,13 @@ export class BlankPageComponent implements OnInit {
             const formData = new FormData();
             formData.append("image", fileBrowser.files[0]);
             reader.addEventListener("load", () => {
-                this.user.updateAvatar(reader.result.split(',')[1]).subscribe(res => {
+                let imgSrc = reader.result.split(',')[1];
+                this.avatarPreviewSrc = imgSrc;
+                this.user.updateAvatar(imgSrc).subscribe(res => {
                     // do stuff w/my uploaded file
+
                 });
             }, false);
-
-            let x = reader.readAsDataURL(fileBrowser.files[0]);
-
         }
     }
 

@@ -11,7 +11,8 @@ import { DashboardComponent } from './dashboard.component';
 import {
     TimelineComponent,
     NotificationComponent,
-    ChatComponent
+    ChatComponent,
+    TutorialComponent,
 } from './components';
 import { StatModule } from '../../shared';
 
@@ -27,7 +28,8 @@ import { StatModule } from '../../shared';
         DashboardComponent,
         TimelineComponent,
         NotificationComponent,
-        ChatComponent
+        ChatComponent,
+        TutorialComponent
     ]
 })
 export class DashboardModule { }

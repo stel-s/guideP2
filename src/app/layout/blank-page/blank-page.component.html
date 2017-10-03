@@ -1,21 +1,22 @@
-<link href="https://unpkg.com/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<div class="row">
-    <img src="" />
-</div>
-<form [formGroup]="heroForm" #formDir="ngForm" >
-      <label for="name">Name</label>
-    <input id="name" class="form-control"
-           formControlName="name" required >
 
-    <div *ngIf="name.invalid && (name.dirty || name.touched)"
-         class="alert alert-danger">
-    </div>
 
-</form>
+<!--<form [formGroup]="heroForm" #formDir="ngForm" >-->
+      <!--<label for="name">Name</label>-->
+    <!--<input id="name" class="form-control"-->
+           <!--formControlName="name" required >-->
+
+    <!--<div *ngIf="name.invalid && (name.dirty || name.touched)"-->
+         <!--class="alert alert-danger">-->
+    <!--</div>-->
+
+<!--</form>-->
 <div class="row">
+
+<br />
+
 
     <form role="form" #profileForm="ngForm" (ngSubmit)="update(profileForm)">
+
         <!--<div class="form-group row">-->
             <!--<label for="example-text-input" class="col-2 col-form-label">Text</label>-->
             <!--<div class="col-10">-->
@@ -39,119 +40,159 @@
 
             <div style="display:flex">
                 <div class="form-group ">
-                    <label>firstName</label>
-                    <input type="text" #firstName="ngModel" required [(ngModel)]="profile.firstName" name="firstName"
-                           class="form-control input-underline input-lg" id="" placeholder="firstName">
-                    <div [hidden]="firstName.valid || firstName.pristine"
-                    class="alert alert-danger">
-                        firstName is required
-                    </div>
+                    <!--<label>firstName</label>-->
+                    <!--<input type="text" #firstName="ngModel" required [(ngModel)]="profile.firstName" name="firstName"-->
+                           <!--class="form-control input-underline input-lg" id="" placeholder="firstName">-->
+                    <!--<div [hidden]="firstName.valid || firstName.pristine"-->
+                    <!--class="alert alert-danger">-->
+                        <!--firstName is required-->
+                    <!--</div>-->
+                    <md-form-field class="example-full-width">
+                        <input #firstName="ngModel" required [(ngModel)]="profile.firstName" name="firstName" mdInput placeholder="Ονομα" value="">
+                    </md-form-field>
+                    <md-form-field class="example-full-width">
+                        <input mdInput placeholder="Επίθετο"  required [(ngModel)]="profile.lastName" name="lastName" value="">
+                    </md-form-field>
                 </div>
 
-                <div class="form-group ">
-                    <label>Lastanem</label>
-                    <input type="text" required [(ngModel)]="profile.lastName" name="lastName"
-                           class="form-control input-underline input-lg" id="" placeholder="lastName">
-                    <!--<div [hidden]="password.valid || password.pristine"-->
-                    <!--class="alert alert-danger">-->
-                    <!--password is required-->
-                    <!--</div>-->
-                </div>
+                <!--<div class="form-group ">-->
+                    <!--&lt;!&ndash;<label>Lastanem</label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<input type="text" required [(ngModel)]="profile.lastName" name="lastName"&ndash;&gt;-->
+                           <!--&lt;!&ndash;class="form-control input-underline input-lg" id="" placeholder="lastName">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div [hidden]="password.valid || password.pristine"&ndash;&gt;-->
+                    <!--&lt;!&ndash;class="alert alert-danger">&ndash;&gt;-->
+                    <!--&lt;!&ndash;password is required&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<md-form-field class="example-full-width">-->
+                        <!--<input mdInput placeholder="Επίθετο" value="">-->
+                    <!--</md-form-field>-->
+                <!--</div>-->
             </div>
             <div style="display:flex">
                 <div class="form-group">
-                    <label>vatNumber:</label>
-                    <input type="text"
-                           minlength="4"
-                           forbiddenName="bob"
-                           #vatNumber="ngModel"
-                           required [(ngModel)]="profile.vatNumber" name="vatnumber"
-                           class="form-control input-underline input-lg" id="" placeholder="ΑΦΜ">
+                    <md-form-field class="example-full-width">
+                        <input   minlength="4"
+                                 forbiddenName="bob"
+                                 #vatNumber="ngModel"
+                                 [(ngModel)]="profile.vatNumber"
+                                 name="vatNumber"
+                                 mdInput
+                                 placeholder="ΑΦΜ"
+                                 value="">
+                    </md-form-field>
+                    <md-form-field class="example-full-width">
+                        <input mdInput
+                               required [(ngModel)]="profile.amIKA" name="amIKA"
+                               placeholder="ΑΜΚΑ" value="">
+                    </md-form-field>
+                    <!--<label>vatNumber:</label>-->
+                    <!--<input type="text"-->
+                           <!--minlength="4"-->
+                           <!--forbiddenName="bob"-->
+                           <!--#vatNumber="ngModel"-->
+                           <!--required [(ngModel)]="profile.vatNumber" name="vatnumber"-->
+                           <!--class="form-control input-underline input-lg" id="" placeholder="ΑΦΜ">-->
                     <!--<div [hidden]="username.valid || username.pristine"-->
                     <!--class="alert alert-danger">-->
                     <!--username is required-->
                     <!--</div>-->
-                    <div *ngIf="vatNumber.valid">
-                        Name cannot be Bob.
+                    <div class="alert alert-danger" *ngIf="vatNumber.valid">
+                       Υπάρχει ήδη to αφμ
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>amIKA:</label>
-                    <input type="text" required [(ngModel)]="profile.amIKA" name="amIKA"
-                           class="form-control input-underline input-lg" id="" placeholder="amIKA">
+                    <!--<label>amIKA:</label>-->
+                    <!--<input type="text" required [(ngModel)]="profile.amIKA" name="amIKA"-->
+                           <!--class="form-control input-underline input-lg" id="" placeholder="amIKA">-->
                     <!--<div [hidden]="password.valid || password.pristine"-->
                     <!--class="alert alert-danger">-->
                     <!--password is required-->
                     <!--</div>-->
                 </div>
-
             </div>
             <div style="display:flex">
                 <div class="form-group">
-                    <label>Διεθυνση</label>
-                    <input type="text" required [(ngModel)]="profile.street" name="street"
-                           class="form-control input-underline input-lg"
-                           id="" placeholder="street">
+                    <md-form-field class="example-full-width">
+                        <input mdInput [(ngModel)]="profile.guideNumber" name="guideNumber" placeholder="guideNumber" value="">
+                    </md-form-field>
+                    <md-form-field class="example-full-width">
+                        <input mdInput placeholder="municipality" [(ngModel)]="profile.municipality"  name="municipality" value="">
+                    </md-form-field>
+                    <!--<label>Διεθυνση</label>-->
+                    <!--<input type="text" required [(ngModel)]="profile.street" name="street"-->
+                    <!--class="form-control input-underline input-lg"-->
+                    <!--id="" placeholder="street">-->
                     <!--<div [hidden]="password.valid || password.pristine"-->
                     <!--class="alert alert-danger">-->
                     <!--password is required-->
                     <!--</div>-->
                 </div>
-
-
-                <div class="form-group">
-                    <label>Αριθμοs</label>
-                    <input type="text" required [(ngModel)]="profile.streetNumber" name="lastName"
-                           class="form-control input-underline input-lg" id="" placeholder="Αριθμός">
-                    <!--<div [hidden]="password.valid || password.pristine"-->
-                    <!--class="alert alert-danger">-->
-                    <!--password is required-->
-                    <!--</div>-->
-                </div>
+                <!--<div class="form-group">-->
+                <!--<label>Αριθμοs</label>-->
+                <!--<input type="text" required [(ngModel)]="profile.streetNumber" name="lastName"-->
+                <!--class="form-control input-underline input-lg" id="" placeholder="Αριθμός">-->
+                <!--&lt;!&ndash;<div [hidden]="password.valid || password.pristine"&ndash;&gt;-->
+                <!--&lt;!&ndash;class="alert alert-danger">&ndash;&gt;-->
+                <!--&lt;!&ndash;password is required&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--</div>-->
             </div>
+            <div style="display:flex">
+                <div class="form-group">
+                    <md-form-field class="example-full-width">
+                        <input mdInput [(ngModel)]="profile.street" name="street" placeholder="Διέθυνση" value="">
+                    </md-form-field>
+                    <md-form-field class="example-full-width">
+                        <input mdInput placeholder="αρ." value="" name="d">
+                    </md-form-field>
+                    <!--<label>Διεθυνση</label>-->
+                    <!--<input type="text" required [(ngModel)]="profile.street" name="street"-->
+                           <!--class="form-control input-underline input-lg"-->
+                           <!--id="" placeholder="street">-->
+                    <!--<div [hidden]="password.valid || password.pristine"-->
+                    <!--class="alert alert-danger">-->
+                    <!--password is required-->
+                    <!--</div>-->
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label>Αριθμοs</label>-->
+                    <!--<input type="text" required [(ngModel)]="profile.streetNumber" name="lastName"-->
+                           <!--class="form-control input-underline input-lg" id="" placeholder="Αριθμός">-->
+                    <!--&lt;!&ndash;<div [hidden]="password.valid || password.pristine"&ndash;&gt;-->
+                    <!--&lt;!&ndash;class="alert alert-danger">&ndash;&gt;-->
+                    <!--&lt;!&ndash;password is required&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--</div>-->
+            </div>
+            <div style="display:flex">
+                <div class="form-group">
+                    <md-form-field class="example-full-width">
+                        <input mdInput [(ngModel)]="profile.telephone" name="telephone" placeholder="telephone" value="">
+                    </md-form-field>
+                    <md-form-field class="example-full-width">
+                        <input mdInput placeholder="amka" [(ngModel)]="profile.amka"  name="amka" value="">
+                    </md-form-field>
+                </div>
 
-
+            </div>
         </div>
-        <form class="example-form">
-            <md-form-field class="example-full-width">
-                <input mdInput placeholder="Favorite food" value="Sushi">
-            </md-form-field>
-        </form>
-        <button md-button>Click me!</button>
-
+        <button md-button>ενημέρωση</button>
         <!--<button type="button" class="btn btn-default" (click)=" signupForm.reset()">New Hero</button>-->
         <button class="btn rounded-btn" type="submit"> Ενημέρωση</button>
         <!--<a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()"> Log in </a>-->
         &nbsp;
         <!--<a class="btn rounded-btn" [routerLink]="['/signup']">Register</a>-->
     </form>
-</div>
-<br />
-<div class="row">
     <div class="col-lg-6">
-        <input type="file" #fileInput placeholder="Upload file..."/>
-        <button class="btn rounded-btn"  type="button" (click)="upload()">Upload</button>
-        <div class="row">
-            <form class="col s12">
 
-                <div class="row">
-                    <div class="col s12">
-                        <div class="input-field inline">
-                            <input type="text" required
-                                   class="validate"
-                                   [(ngModel)]="profile.vatNumber"
-                                   name="afm"
-                                   class="form-control input-underline input-lg"
-                                   id="afm" placeholder="ΑΦΜ">
-                            <label for="afm" data-error="wrong" data-success="right">ΑΦΜ</label>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <ngx-avatar></ngx-avatar>
+        <input type="file" class="" #fileInput placeholder="Upload file..."/>
+        <img *ngIf="avatarPreviewSrc" #imgRef [src]="DomSanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64',avatarPreviewSrc)" alt="" class="img-thumbnail">
+
+
+        <button class="btn rounded-btn"  type="button" (click)="upload()">Upload</button>
 
     </div>
 </div>
+<br />
 
-
+<ngx-avatar></ngx-avatar>

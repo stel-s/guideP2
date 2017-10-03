@@ -32,9 +32,9 @@ export class ForbiddenValidatorDirective implements Validator {
             this.user.isAFMAvailable(email).map(res => res.json()).take(1)
                 .subscribe((res) => {
                     console.log(res)
-                    if (res === "3") {
+                    if (res) {
                         resolve({
-                            asyncInvalid: true
+                            asyncValid: true
                         })
                     } else {
                         resolve(null);
@@ -42,15 +42,7 @@ export class ForbiddenValidatorDirective implements Validator {
                 },
                 (err) => console.log(err)
                 )
-            setTimeout(() => {
-                if (email === "3") {
-                    resolve({
-                        asyncInvalid: true
-                    })
-                } else {
-                    resolve(null);
-                }
-            }, 2000);
+
         })
     }
     // validate(control: AbstractControl): {[key: string]: any} {
