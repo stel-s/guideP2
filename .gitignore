@@ -3,7 +3,7 @@ yarn-error.log
 # compiled output
 /tmp
 /out-tsc
-*.js
+
 *.js.map
 # dependencies
 /node_modules
