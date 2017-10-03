@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
 
     @ViewChild('imgRef') img: ElementRef;
 
-
     profile: IHeaderProfile = {
         firstName: undefined,
         lastName: undefined,
@@ -39,8 +38,6 @@ export class HeaderComponent implements OnInit {
                 this.toggleSidebar();
             }
         });
-
-
     }
 
     ngOnInit() {
@@ -48,8 +45,7 @@ export class HeaderComponent implements OnInit {
             if (x) {
                 this.profile = Object.assign({},this.profile,x);
             }
-        })
-
+        });
         this.user.getProfile().subscribe((res => this.profile = res));
     }
 

@@ -13,9 +13,10 @@ const routes: Routes = [
             { path: 'bs-element', loadChildren: './bs-element/bs-element.module#BsElementModule' },
             { path: 'grid', loadChildren: './grid/grid.module#GridModule' },
             { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
-            { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' },
+            { path: 'profile', loadChildren: './blank-page/blank-page.module#BlankPageModule' },
             { path: 'calculator', loadChildren: './calculator/calculator.module#CalculatorModule' },
             { path: 'new-client', loadChildren: './new-client/new-client.module#NewClientModule' },
+            { path: 'clients', loadChildren: './clients/clients.module#ClientsModule' },
 
         ]
     }

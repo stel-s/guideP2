@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/debounce';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import {
     MdAutocompleteModule,
@@ -47,6 +49,14 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 ////Providers/////
 import { User } from '../../providers/providers';
 //////END///////
+//////////////////END IMPORTS////////////////////////////////////////
+interface IHeaderProfile {
+    firstName: string,
+    lastName: string,
+    avatar: {
+        fileData: string,
+    }
+}
 interface profile1 {
     guideNumber: string;
     amka: string;
@@ -61,25 +71,26 @@ interface profile1 {
     municipality: string;
     postcode: string;
 }
-export class Profile {
-
-    constructor(
-        public username: string,
-        public password: string,
-        public guideNumber?: string,
-         amka?: string,
-        vatNumber?: string,
-        amIKA?: string,
-        public firstName?: string,
-        lastName?: string,
-        street?: string,
-        streetNumber?: string,
-        telephone?: string,
-        municipality?: string,
-        postcode?: string,
-    ) { }
-
-}
+// export class Profile {
+//
+//     constructor(
+//         public username: string,
+//         public password: string,
+//         public guideNumber?: string,
+//          amka?: string,
+//         vatNumber?: string,
+//         amIKA?: string,
+//         public firstName?: string,
+//         lastName?: string,
+//         street?: string,
+//         streetNumber?: string,
+//         telephone?: string,
+//         municipality?: string,
+//         postcode?: string,
+//         public avatar?: string,
+//     ) { }
+//
+// }
 
 @Component({
     selector: 'app-blank-page',
@@ -89,16 +100,23 @@ export class Profile {
 
 
 export class BlankPageComponent implements OnInit {
-    profile;
+    closeResult: string;
+    profile:any ;
     @ViewChild('fileInput') fileInput;
     avatarPreviewSrc: any;
 
     hero = { name: 'Dr.' };
     heroForm: FormGroup;
+    myGroup = new FormGroup({
+        file: new FormControl()
+    });
+
     constructor(public user: User,
                 public router: Router,
                 public toastr: ToastsManager,
-                vcr: ViewContainerRef
+                vcr: ViewContainerRef,
+                private sanitizer: DomSanitizer,
+                private modalService: NgbModal
     ) {
         this.toastr.setRootViewContainerRef(vcr);
 
@@ -110,21 +128,25 @@ export class BlankPageComponent implements OnInit {
             "guideNumber": "123456789",
             "amka": "22222112",
             "username": "stel",
-            "street": "kapou",
-            "streetNumber": "27",
             "telephone": "6977125252",
             "municipality": "Dafni",
             "postcode":"17445"
         }
-         payload = Object.assign({},payload,obj);
+        payload = Object.assign({},payload,obj);
         this.user.updateProfile(payload).subscribe((res => {
             this.toastr.success('Profile', 'Saved!');
-            console.log(res)
             this.user.currentUser.next({firstName: payload.firstName, lastName: payload.lastName})
         }));
     }
 
     ngOnInit(): void {
+        this.profile = {
+            firstName: undefined,
+            lastName: undefined,
+            avatar: {
+                fileData: undefined
+            }
+        };
         this.heroForm = new FormGroup({
             'name': new FormControl(this.hero.name, [
             ]),
@@ -132,6 +154,8 @@ export class BlankPageComponent implements OnInit {
         });
         this.user.getProfile().take(1).subscribe((res: any) => {
             this.profile = res
+            this.avatarPreviewSrc = res.avatar.fileData;
+
         }, (err) => {
 
         }
@@ -156,9 +180,9 @@ export class BlankPageComponent implements OnInit {
         if (fileBrowser.files && fileBrowser.files[0]) {
             const formData = new FormData();
             formData.append("image", fileBrowser.files[0]);
-            reader.addEventListener("load", () => {
+            reader.addEventListener("load",  () => {
                 let imgSrc = reader.result.split(',')[1];
-                this.avatarPreviewSrc = imgSrc;
+                console.log("insdeide")
                 this.user.updateAvatar(imgSrc).subscribe(res => {
                     // do stuff w/my uploaded file
 
@@ -180,6 +204,7 @@ export class BlankPageComponent implements OnInit {
         if (file) {
             reader.readAsDataURL(file);
         }
+
     }
     onFileChange(event) {
         let files = event.target.files;
@@ -198,5 +223,22 @@ export class BlankPageComponent implements OnInit {
     //
     //         })
     // }
+    open(content) {
+        this.modalService.open(content).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+    }
+
+    private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        } else {
+            return  `with: ${reason}`;
+        }
+    }
 }
 

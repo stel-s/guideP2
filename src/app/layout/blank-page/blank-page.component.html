@@ -141,9 +141,9 @@
                 <div class="form-group">
                     <md-form-field class="example-full-width">
                         <input mdInput [(ngModel)]="profile.street" name="street" placeholder="Διέθυνση" value="">
-                    </md-form-field>
+                    </md-form-field>streetNumber
                     <md-form-field class="example-full-width">
-                        <input mdInput placeholder="αρ." value="" name="d">
+                        <input mdInput [(ngModel)]="profile.streetNumber" placeholder="αρ." value="" name="d">
                     </md-form-field>
                     <!--<label>Διεθυνση</label>-->
                     <!--<input type="text" required [(ngModel)]="profile.street" name="street"-->
@@ -183,16 +183,37 @@
         &nbsp;
         <!--<a class="btn rounded-btn" [routerLink]="['/signup']">Register</a>-->
     </form>
+    <div [formGroup]="myGroup">
+
+    </div>
+
+
     <div class="col-lg-6">
 
         <input type="file" class="" #fileInput placeholder="Upload file..."/>
-        <img *ngIf="avatarPreviewSrc" #imgRef [src]="DomSanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64',avatarPreviewSrc)" alt="" class="img-thumbnail">
+        <!--<img  #imgRef [src]="'data:image/jpeg;base64' + avatarPreviewSrc" alt="" class="img-thumbnail">-->
 
+        <!--<img height="100" width="100" class="img rounded img-thumbnail" src="data:image/jpeg;base64,{{profile.avatar.fileData}}" alt="" class="img-thumbnail">-->
 
         <button class="btn rounded-btn"  type="button" (click)="upload()">Upload</button>
 
     </div>
 </div>
 <br />
-
-<ngx-avatar></ngx-avatar>
+<div class="card-block">
+    <button class="btn btn-primary" (click)="open(content)">Large modal</button>
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Modal title</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+        </div>
+    </ng-template>
+</div>

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -49,7 +51,8 @@ import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { UsernameValidator } from './validators/userNameValidator'
 
 import {CdkTableModule} from '@angular/cdk/table';
-
+import { NoopInterceptor } from './interceptors/NoopInterceptor'
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
 @NgModule({
     exports: [
         CdkTableModule,
@@ -100,7 +103,7 @@ export function HttpLoaderFactory(http: Http) {
     ],
     imports: [
         PlunkerMaterialModule,
-
+        HttpClientModule,
         BrowserAnimationsModule,
         ToastModule.forRoot(),
         BrowserModule,
@@ -118,8 +121,12 @@ export function HttpLoaderFactory(http: Http) {
     ],
     providers: [AuthGuard,
           Api,
-
-    User,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: NoopInterceptor,
+            multi: true,
+        },
+            User,
 
     UsernameValidator,
     ],

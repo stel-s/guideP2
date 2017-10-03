@@ -11,10 +11,13 @@
         </div>
         <div class="col-6">
             <div style="width:100px">
-                <input type="text"/>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+                    <input name="first" ngModel required #first="ngModel">
+                    <button class="btn ">Υπολόγισε</button>
+                </form>
             </div>
         </div>
-        <button class="btn ">Υπολόγισε</button>
+
     </div>
     <hr>
     <div style="display:flex">
@@ -31,13 +34,13 @@
         </div>
         <div style="display:flex;flex-direction:column">
             <div>
-                <span style="border: 1px solid;margin-left:20px">$ 334</span>
+                <span style="border: 1px solid;margin-left:20px">$ {{model.poso}}</span>
             </div>
             <div>
-                <span style="border: 1px solid;margin-left:20px">$ 334</span>
+                <span style="border: 1px solid;margin-left:20px">$ {{model.ika}}</span>
             </div>
             <div>
-                <span style="border: 1px solid;margin-left:20px;background-color: yellow;">$ 193,55</span>
+                <span style="border: 1px solid;margin-left:20px;background-color: yellow;">$ {{model.pliroteo}}</span>
             </div>
         </div>
 

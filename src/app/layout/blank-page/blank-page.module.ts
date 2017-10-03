@@ -35,6 +35,7 @@ import {
     MdTooltipModule,
     MdStepperModule,
 } from '@angular/material';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { BlankPageRoutingModule } from './blank-page-routing.module';
 import { BlankPageComponent } from './blank-page.component';
@@ -76,14 +77,15 @@ import { AvatarModule } from 'ngx-avatar';
       MdTabsModule,
       MdToolbarModule,
       MdTooltipModule,
-    CommonModule,
-    BlankPageRoutingModule,
+      CommonModule,
+      BlankPageRoutingModule,
       FileUploadModule,
       FormsModule,
       TranslateModule,
       ReactiveFormsModule,
       // Specify AvatarModule as an import
-      AvatarModule
+      AvatarModule,
+      NgbModule.forRoot(),
   ],
   declarations: [BlankPageComponent,ForbiddenValidatorDirective]
 })
