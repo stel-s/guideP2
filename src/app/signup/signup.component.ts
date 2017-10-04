@@ -56,7 +56,6 @@ export class SignupComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.showSuccess();
     }
 
     showSuccess() {
