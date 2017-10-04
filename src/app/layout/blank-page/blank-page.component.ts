@@ -188,6 +188,8 @@ export class BlankPageComponent implements OnInit {
 
                 });
             }, false);
+            reader.readAsDataURL(fileBrowser.files[0]);
+
         }
     }
 

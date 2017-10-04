@@ -229,7 +229,7 @@ export class User {
           this._loggedIn(res);
         }
       }, err => {
-        if (err.statusText === 'Unauthorized') {
+        if (err === 'Unauthorized') {
             this.router.navigate(['/login']);
                       console.error('Unauthorized', err);
                }
