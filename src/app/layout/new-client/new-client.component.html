@@ -1,50 +1,67 @@
-<div class="">
-    Υπολογιστή Ποσών
-</div>
-<div class="container" style="border: 1px solid;">
-    <div class="row">
 
+<form [formGroup]="myForm"
+      (ngSubmit)="onSubmit(myForm.value)"
+      class="ui form">
+    <div class="field">
+        <label for="companyName">companyName</label>
+        <input type="text"
+               id="companyName"
+               placeholder="companyName"
+               name="companyName" [formControl]="myForm.controls['companyName']">
     </div>
-    <div class="row" style="padding:20px">
-        <div class="col-2">
-            <div style="width:100px">Καθαρό ποσο που επιθυμώ</div>
-        </div>
-        <div class="col-6">
-            <div style="width:100px">
-                <input type="text"/>
-            </div>
-        </div>
-        <button class="btn ">Υπολόγισε</button>
+    <div class="field">
+        <label for="companyTitle">companyTitle</label>
+        <input type="text"
+               id="companyTitle"
+               placeholder="companyTitle"
+               name="sku" [formControl]="myForm.controls['companyTitle']">
     </div>
-    <hr>
-    <div style="display:flex">
-        <div style="display:flex;flex-direction:column">
-            <div>
-                Ποσό που αναγραφω δεξια πανω
-            </div>
-            <div>
-                ΙΚΑ/ΤΕΑΜ (16Χ)
-            </div>
-            <div>
-                Πληρωτέο
-            </div>
-        </div>
-        <div style="display:flex;flex-direction:column">
-            <div>
-                <span style="border: 1px solid;margin-left:20px">$ 334</span>
-            </div>
-            <div>
-                <span style="border: 1px solid;margin-left:20px">$ 334</span>
-            </div>
-            <div>
-                <span style="border: 1px solid;margin-left:20px;background-color: yellow;">$ 193,55</span>
-            </div>
-        </div>
-
+    <div class="field">
+        <label for="contactName">contactName</label>
+        <input type="text"
+               id="contactName"
+               placeholder="contactName"
+               name="sku" [formControl]="myForm.controls['contactName']">
     </div>
+    <div class="field">
+        <label for="vatNumber">ΑΦΜ</label>
+        <input type="text"
+               id="vatNumber"
+               placeholder="vatNumber"
+               name="vatNumber" [formControl]="myForm.controls['vatNumber']">
+    </div>
+    <div class="field">
+        <label for="profession">profession</label>
+        <input type="text"
+               id="profession"
+               placeholder="profession"
+               name="profession" [formControl]="myForm.controls['profession']">
+    </div>
+    <div class="field">
+        <label for="notes">notes</label>
+        <input type="text"
+               id="notes"
+               placeholder="notes"
+               name="notes" [formControl]="myForm.controls['notes']">
+    </div>
+    <button type="submit" class="btn btn-primary">Αποθήκευση</button>
+</form>
+<!--<div class="form-group">-->
+    <!--<md-form-field class="example-full-width">-->
+        <!--<input-->
+            <!--minlength="4"-->
 
 
+                 <!--[(ngModel)]="model.vatNumber"-->
+                 <!--name="vatNumber"-->
+                 <!--mdInput-->
+                 <!--placeholder="ΑΦΜ"-->
+                 <!--value="">-->
+    <!--</md-form-field>-->
+    <!--<md-form-field class="example-full-width">-->
+        <!--<input mdInput-->
+               <!--required [(ngModel)]="model.companyName" name="companyName"-->
+               <!--placeholder="companyName" value="">-->
+    <!--</md-form-field>-->
 
-</div>
-
-
+<!--</div>-->

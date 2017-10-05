@@ -1,32 +1,36 @@
 <div class="container">
     <h3>
-        <button md-raised-button color="primary">Νέος Πελάτης</button>
+        <button md-raised-button color="primary" (click)="open(content)">Νέος Πελάτης</button>
     </h3>
-
     <div>
-        <div style="display:flex">
-            <md-icon svgIcon="search"></md-icon>
+        <form class="example-form">
+            <md-form-field class="example-full-width">
+                <input mdInput placeholder="Αναζήτηση..." aria-label="Αναζήτηση..." [mdAutocomplete]="auto" [formControl]="stateCtrl">
+                <md-autocomplete #auto="mdAutocomplete">
 
-            <i class="material-icons">search</i>
-            Αναζήτηση
-
-            <br/>
-            <form>
-                <md-select placeholder="Favorite food" [(ngModel)]="selectedValue" name="food">
-                    <md-option *ngFor="let food of foods" [value]="food.value">
-                        {{food.viewValue}}
+                    <md-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                        <!--<img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />-->
+                        <span>{{ state.name }}</span> |
+                        <small>afm: {{state.afm}}</small>
                     </md-option>
-                </md-select>
+                </md-autocomplete>
+            </md-form-field>
 
-                <p> Selected value: {{selectedValue}} </p>
-            </form>
+            <br />
 
+
+        </form>
+        <div style="display:flex;position:relative">
             <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-                <input name="first" ngModel required #search="ngModel">
-                <button class="btn ">search</button>
+                <input style=" padding-left: 25px;" name="first" ngModel required #search="ngModel">
+                <i style="position: absolute;left: 4px;top: 10px;"
+                   class="material-icons">search</i>
+
+                <button class="btn ">
+                    <i class="material-icons">search</i>
+                </button>
             </form>
         </div>
-
     </div>
     <div class="example-container mat-elevation-z8">
         <div class="example-header">
@@ -72,5 +76,29 @@
             <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
         </md-table>
     </div>
+</div>
+<div class="card-block">
 
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Modal title</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form>
+            <select class="custom-select">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </form>
+        <div class="modal-body">
+            <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+        </div>
+    </ng-template>
 </div>

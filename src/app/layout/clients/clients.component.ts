@@ -13,9 +13,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 ////Providers/////
 import { User } from '../../providers/providers';
 //////END///////
+
 
 
 @Component({
@@ -27,6 +31,7 @@ import { User } from '../../providers/providers';
 
 export class ClientsComponent implements  OnInit {
     selectedValue: string;
+    closeResult: string;
     displayedColumns = ['userId', 'userName', 'progress', 'color'];
     exampleDatabase = new ExampleDatabase();
     dataSource: ExampleDataSource | null;
@@ -38,6 +43,45 @@ export class ClientsComponent implements  OnInit {
         {value: 'pizza-1', viewValue: 'ονομα'},
 
     ];
+    stateCtrl: FormControl;
+    filteredStates: Observable<any[]>;
+
+    states: any[] = [
+        {
+            name: 'Νικοσ Ππαπαδοποθ',
+            afm: '2323232',
+            // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
+            flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
+        },
+        {
+            name: 'stelios sdsd',
+            afm: '39.14M',
+            // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
+            flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
+        },
+        {
+            name: 'Κωστας IKE',
+            population: '20.27M',
+            // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
+            flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
+        }
+    ];
+
+
+    constructor(
+                private modalService: NgbModal
+    ) {
+        this.stateCtrl = new FormControl();
+        this.filteredStates = this.stateCtrl.valueChanges
+            .startWith(null)
+            .map(state => state ? this.filterStates(state) : this.states.slice());
+    }
+
+    filterStates(name: string) {
+        return this.states.filter(state =>
+        state.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
+    }
+
     ngOnInit() {
         this.dataSource = new ExampleDataSource(this.exampleDatabase);
         Observable.fromEvent(this.filter.nativeElement, 'keyup')
@@ -48,8 +92,27 @@ export class ClientsComponent implements  OnInit {
                 this.dataSource.filter = this.filter.nativeElement.value;
             });
     }
+
     onSubmit(f) {
 
+    }
+
+    open(content) {
+        this.modalService.open(content).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+    }
+
+    private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        } else {
+            return  `with: ${reason}`;
+        }
     }
 }
 
@@ -96,6 +159,8 @@ export class ExampleDatabase {
             color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
         };
     }
+
+
 }
 
 /**

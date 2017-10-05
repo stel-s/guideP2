@@ -35,12 +35,14 @@ import {
     MdTooltipModule,
     MdStepperModule,
 } from '@angular/material';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { BlankPageRoutingModule } from './blank-page-routing.module';
 import { BlankPageComponent } from './blank-page.component';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { ForbiddenValidatorDirective } from './forbidden-name.directive';
+
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
 @NgModule({

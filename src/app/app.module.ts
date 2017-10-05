@@ -46,6 +46,7 @@ import {
 ////
 import { Settings } from './providers/providers';
 import { User } from './providers/providers';
+import { Customer } from './providers/providers';
 import { Api } from './providers/providers';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import { UsernameValidator } from './validators/userNameValidator'
@@ -127,8 +128,9 @@ export function HttpLoaderFactory(http: Http) {
             multi: true,
         },
             User,
+             Customer,
 
-    UsernameValidator,
+            UsernameValidator,
     ],
     bootstrap: [AppComponent]
 })

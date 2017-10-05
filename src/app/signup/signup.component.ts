@@ -67,6 +67,8 @@ export class SignupComponent implements OnInit {
         console.log("forms2", this.model);
         let payload = Object.assign({}, this.model);
         delete payload.confpassword;
+        let firstName = payload.fullname.split(' ')[0]
+        let lastName = payload.fullname.split(' ')[1]
         delete payload.fullname;
         this.model.firstName = "sdsds";
         this.model.lastName = "sdsds";

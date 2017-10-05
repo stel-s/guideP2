@@ -239,6 +239,7 @@ export class User {
    return seq.map((res:any) => JSON.parse(res._body));
   }
 
+
   updateProfile(profile: any) {
       console.log(profile)
       let options = new RequestOptions();

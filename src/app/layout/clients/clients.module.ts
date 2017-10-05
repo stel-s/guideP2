@@ -9,12 +9,25 @@ import {MdTableModule} from '@angular/material';
 import { ClientsRoutingModule } from './clients-routing.module';
 import { ClientsComponent } from './clients.component';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { MdButtonModule, MdCheckboxModule,     MdMenuModule,       MdSelectModule} from '@angular/material';
+import {
+    MdButtonModule,
+    MdCheckboxModule,
+    MdMenuModule,
+    MdSelectModule,
+    MdAutocompleteModule,
+    MdSliderModule,
+    MdSlideToggleModule,
+} from '@angular/material';
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [MdButtonModule,
+  imports: [
+      MdSliderModule,
+      MdSlideToggleModule,
+      MdAutocompleteModule,
+      MdButtonModule,
       MdCheckboxModule,
       CommonModule,
       ClientsRoutingModule,
@@ -28,8 +41,7 @@ import { AvatarModule } from 'ngx-avatar';
       CdkTableModule,
       MdTableModule,
       MdMenuModule,
-
-
+      NgbModule.forRoot(),
   ],
   declarations: [ClientsComponent]
 })
