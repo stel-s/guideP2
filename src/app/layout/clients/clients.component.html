@@ -1,6 +1,9 @@
 <div class="container">
     <h3>
-        <button md-raised-button color="primary" (click)="open(content)">Νέος Πελάτης</button>
+            <a routerLink="/new-client" [routerLinkActive]="['router-link-active']">
+                <button md-raised-button color="primary" >Νέος Πελάτης     </button>
+            </a>
+
     </h3>
     <div>
         <form class="example-form">
@@ -21,8 +24,8 @@
 
         </form>
         <div style="display:flex;position:relative">
-            <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-                <input style=" padding-left: 25px;" name="first" ngModel required #search="ngModel">
+            <form [formGroup]="coolForm" (ngSubmit)="onSubmit(f)" novalidate>
+                <input style=" padding-left: 25px;" name="first"  required formControlName="search" >
                 <i style="position: absolute;left: 4px;top: 10px;"
                    class="material-icons">search</i>
 

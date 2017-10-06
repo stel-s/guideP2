@@ -1,7 +1,12 @@
 import {Component, OnInit, ViewContainerRef, ViewChild, Directive, ElementRef} from '@angular/core';
+import {
+    FormControl,
+    FormGroup,
+    FormBuilder,
+    Validators
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormsModule }   from '@angular/forms';
+
 
 import { NgForm } from '@angular/forms';
 import {DataSource} from '@angular/cdk/collections';
@@ -18,6 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 ////Providers/////
 import { User } from '../../providers/providers';
+import { Customer } from '../../providers/providers';
+
 //////END///////
 
 
@@ -30,6 +37,8 @@ import { User } from '../../providers/providers';
 
 
 export class ClientsComponent implements  OnInit {
+    searchField: FormControl;
+    coolForm: FormGroup;
     selectedValue: string;
     closeResult: string;
     displayedColumns = ['userId', 'userName', 'progress', 'color'];
@@ -69,12 +78,29 @@ export class ClientsComponent implements  OnInit {
 
 
     constructor(
-                private modalService: NgbModal
+                private modalService: NgbModal,
+                private fb:FormBuilder,
+                private customer: Customer,
+                private user: User,
     ) {
         this.stateCtrl = new FormControl();
         this.filteredStates = this.stateCtrl.valueChanges
             .startWith(null)
             .map(state => state ? this.filterStates(state) : this.states.slice());
+
+        this.searchField = new FormControl();
+        this.coolForm = fb.group({search: this.searchField});
+
+        this.searchField.valueChanges
+            .debounceTime(400)
+            .flatMap(term => {
+                console.log(term)
+                return this.user.isAMKAAvailable(term)
+            })
+            .subscribe((result) => {
+                // this.result = result.artists.items
+            });
+
     }
 
     filterStates(name: string) {
