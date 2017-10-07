@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
  */
 @Injectable()
 export class Api {
-  url: string = 'http://147.102.23.230:8086';
+  url: string = 'https://147.102.23.230:8449';
 
   constructor(public http: Http) {
   }
