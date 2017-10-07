@@ -46,7 +46,9 @@ export class HeaderComponent implements OnInit {
                 this.profile = Object.assign({},this.profile,x);
             }
         });
-        this.user.getProfile().subscribe((res => this.profile = res));
+        this.user.getProfile().subscribe((res => {
+            this.profile =  Object.assign({}, this.profile, res)
+        }));
     }
 
     isToggled(): boolean {

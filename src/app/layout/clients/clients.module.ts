@@ -21,7 +21,7 @@ import {
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { SearchModule } from '../search-component/search.module'
 @NgModule({
   imports: [
       MdSliderModule,
@@ -42,6 +42,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       MdTableModule,
       MdMenuModule,
       NgbModule.forRoot(),
+      SearchModule
   ],
   declarations: [ClientsComponent]
 })

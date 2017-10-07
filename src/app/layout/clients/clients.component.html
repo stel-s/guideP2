@@ -21,10 +21,9 @@
 
             <br />
 
-
         </form>
         <div style="display:flex;position:relative">
-            <form [formGroup]="coolForm" (ngSubmit)="onSubmit(f)" novalidate>
+            <form [formGroup]="coolForm" (ngSubmit)="onSubmit(coolForm)" novalidate>
                 <input style=" padding-left: 25px;" name="first"  required formControlName="search" >
                 <i style="position: absolute;left: 4px;top: 10px;"
                    class="material-icons">search</i>

@@ -59,7 +59,7 @@
                         <!--<a href="javascript:void(0)" class="dropdown-item">View All</a>-->
                     <!--</ul>-->
                 <!--</li>-->
-                <img #imgRef src="data:image/jpeg;base64,{{profile.avatar.fileData}}" alt="" class="img-thumbnail">
+                <img #imgRef *ngIf="profile.avatar" src="data:image/jpeg;base64,{{profile.avatar.fileData}}" alt="" class="img-thumbnail">
                 <li class="nav-item dropdown" ngbDropdown>
                     <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
                         <i class="fa fa-language"></i> {{ '' | translate }} <b class="caret"></b>

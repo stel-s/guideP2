@@ -1,0 +1,34 @@
+
+<form [formGroup]="myForm"
+      (ngSubmit)="onSubmit(myForm.value)"
+      class="ui form">
+    <div class="field">
+        <label for="search">Αριθμός Δελτίου</label>
+        <input type="text"
+               id="search"
+               placeholder=""
+               name="search" [formControl]="myForm.controls['search']">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Αποθήκευση</button>
+</form>
+
+<!--<div class="form-group">-->
+    <!--<md-form-field class="example-full-width">-->
+        <!--<input-->
+            <!--minlength="4"-->
+
+
+                 <!--[(ngModel)]="model.vatNumber"-->
+                 <!--name="vatNumber"-->
+                 <!--mdInput-->
+                 <!--placeholder="ΑΦΜ"-->
+                 <!--value="">-->
+    <!--</md-form-field>-->
+    <!--<md-form-field class="example-full-width">-->
+        <!--<input mdInput-->
+               <!--required [(ngModel)]="model.companyName" name="companyName"-->
+               <!--placeholder="companyName" value="">-->
+    <!--</md-form-field>-->
+
+<!--</div>-->

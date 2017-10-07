@@ -8,7 +8,15 @@ import { JwtHelper } from "angular2-jwt";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { User } from '../providers/providers';
 
+export class NewUser {
 
+    constructor(
+        public email: string,
+        public fullName: string,
+
+    ) {  }
+
+}
 
 interface IAccountInfo {
     firstName: 'Test Human',
@@ -30,8 +38,7 @@ export class SignupComponent implements OnInit {
         password: 'test',
         "guideNumber": null,
     };
-
-    // Our translated text strings
+    model2 = new NewUser("","");
     private signupErrorString: string;
     term = new FormControl();
     private todo: FormGroup;
@@ -44,6 +51,8 @@ export class SignupComponent implements OnInit {
         email: '',
         password: '',
         confpassword: '',
+        isAvailable: true,
+        emailError: true,
     }
 
     constructor(
@@ -53,9 +62,30 @@ export class SignupComponent implements OnInit {
         public user: User,
     ) {
         this.toastr.setRootViewContainerRef(vcr);
+        // this.signUp.valueChanges.subscribe((res) => {
+        //     console.log(res);
+        // })
     }
 
     ngOnInit() {
+
+    }
+
+    ngOnChanges(changes){
+        console.log(changes)
+    }
+
+    doSomething(value){
+        console.log("Sds")
+        this.user.isAvailable(value)
+            .subscribe((res) => {
+                console.log(res)
+                // this.model.emailError = true;
+                this.model.isAvailable = res;
+            })
+
+
+
     }
 
     showSuccess() {
@@ -70,9 +100,10 @@ export class SignupComponent implements OnInit {
         let firstName = payload.fullname.split(' ')[0]
         let lastName = payload.fullname.split(' ')[1]
         delete payload.fullname;
-        this.model.firstName = "sdsds";
-        this.model.lastName = "sdsds";
-        this.user.signup(payload).subscribe((resp) => {
+            payload.firstName = firstName;
+            payload.lastName = lastName;
+        const picked = (({ firstName, lastName, password, email }) => ({ firstName, lastName, password, email }))(payload);
+        this.user.signup(picked).subscribe((resp) => {
             this.toastr.success('Perfect', 'All ok');
         }, (err) => {
             // Unable to sign up

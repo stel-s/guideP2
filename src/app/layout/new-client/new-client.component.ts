@@ -10,6 +10,8 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { JwtHelper } from "angular2-jwt";
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { FileSelectDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import * as uuid from 'uuid/v1'
+
 ////Providers/////
 import { User } from '../../providers/providers';
 import { Customer } from '../../providers/providers';
@@ -53,7 +55,7 @@ export class NewClientComponent implements OnInit {
         "phoneNumber": "2108999999",
         "customerType": "TYPE_A",
         "notes": "Very Nice 2",
-        "uuid" : "4ffe81f8-d529-4e8f-abdf-b265c6b98b1c"
+        "uuid" : uuid()
     }
     constructor(fb: FormBuilder, public customer: Customer) {
         this.myForm = fb.group({

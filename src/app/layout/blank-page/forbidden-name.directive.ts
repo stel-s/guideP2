@@ -32,7 +32,7 @@ export class ForbiddenValidatorDirective implements Validator {
             this.user.isAFMAvailable(email).map(res => res.json()).take(1)
                 .subscribe((res) => {
                     console.log(res)
-                    if (res) {
+                    if (!res) {
                         resolve({
                             asyncValid: true
                         })

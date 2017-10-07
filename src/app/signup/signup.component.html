@@ -16,9 +16,16 @@
 
 					<div class="form-group">
 						<input type="email" required #email="ngModel"
-                        [(ngModel)]="model.email"  [email]="true" class="form-control input-underline input-lg" id=""
+                        [(ngModel)]="model.email"   (ngModelChange)="doSomething($event)" [email]="true" class="form-control input-underline input-lg" id=""
                         name="email"
 						placeholder="Email">
+                        {{model.isTaken}}
+                        <div [hidden]="model.emailError" class="alert alert-danger">
+                            email is required
+                        </div>
+                        <div [hidden]="(model.isAvailable)" class="alert alert-danger">
+                           email already in use
+                        </div>
 					</div>
 
 					<div class="form-group">

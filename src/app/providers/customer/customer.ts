@@ -64,7 +64,20 @@ export class Customer {
         options.headers = myHeaders;
 
 
-        let seq = this.api.post('gocore/user/update/guide', customer, options).share();
+        let seq = this.api.post('gocore/customer/createOrUpdate', customer, options).share();
+        return seq;
+    }
+
+    getAll() {
+
+        let options = new RequestOptions();
+        let myHeaders = new Headers();
+        myHeaders.append('Authorization', 'Bearer ' + this.token );
+        myHeaders.get('Content-Type');
+        options.headers = myHeaders;
+
+
+        let seq = this.api.get('gocore/customer/list/0/0', '', options).map(res => res.json());
         return seq;
     }
 

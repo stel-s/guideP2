@@ -74,20 +74,20 @@ export class User {
     //var search = new URLSearchParams()
 
 
-    let seq = this.api.get(`gocore/user/isAvailable/email/${USERNAME}`).share();
+    let seq = this.api.get(`gocore/user/isAvailable/email/${USERNAME}`)
+        .map((res:any) => res.json())
 
-    seq
-      .map(res => res.json())
-      .subscribe(res => {
-        console.log(res);
-        // If the API returned a successful response, mark the user as logged in
-        if (res.status == 'success') {
 
-        } else {
-        }
-      }, err => {
-        console.error('ERROR', err);
-      });
+      // .subscribe(res => {
+      //   console.log(res);
+      //   // If the API returned a successful response, mark the user as logged in
+      //   if (res.status == 'success') {
+      //
+      //   } else {
+      //   }
+      // }, err => {
+      //   console.error('ERROR', err);
+      // });
 
     return seq;
   }

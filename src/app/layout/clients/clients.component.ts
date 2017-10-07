@@ -44,7 +44,7 @@ export class ClientsComponent implements  OnInit {
     displayedColumns = ['userId', 'userName', 'progress', 'color'];
     exampleDatabase = new ExampleDatabase();
     dataSource: ExampleDataSource | null;
-
+    customerList;
     @ViewChild('filter') filter: ElementRef;
 
     foods = [
@@ -82,7 +82,9 @@ export class ClientsComponent implements  OnInit {
                 private fb:FormBuilder,
                 private customer: Customer,
                 private user: User,
+
     ) {
+
         this.stateCtrl = new FormControl();
         this.filteredStates = this.stateCtrl.valueChanges
             .startWith(null)
@@ -117,6 +119,8 @@ export class ClientsComponent implements  OnInit {
                 if (!this.dataSource) { return; }
                 this.dataSource.filter = this.filter.nativeElement.value;
             });
+
+        this.customer.getAll().subscribe(res => this.customerList = res)
     }
 
     onSubmit(f) {

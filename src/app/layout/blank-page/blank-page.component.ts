@@ -6,42 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-
-
-import {
-    MdAutocompleteModule,
-    MdButtonModule,
-    MdButtonToggleModule,
-    MdCardModule,
-    MdCheckboxModule,
-    MdChipsModule,
-    MdDatepickerModule,
-    MdDialogModule,
-    MdExpansionModule,
-    MdGridListModule,
-    MdIconModule,
-    MdInputModule,
-    MdListModule,
-    MdMenuModule,
-    MdNativeDateModule,
-    MdPaginatorModule,
-    MdProgressBarModule,
-    MdProgressSpinnerModule,
-    MdRadioModule,
-    MdRippleModule,
-    MdSelectModule,
-    MdSidenavModule,
-    MdSliderModule,
-    MdSlideToggleModule,
-    MdSnackBarModule,
-    MdSortModule,
-    MdTableModule,
-    MdTabsModule,
-    MdToolbarModule,
-    MdTooltipModule,
-    MdStepperModule,
-} from '@angular/material';
-
 import { routerTransition } from '../../router.animations';
 
 import { NgForm } from '@angular/forms';
@@ -79,7 +43,7 @@ interface profile1 {
 //         public username: string,
 //         public password: string,
 //         public guideNumber?: string,
-//          amka?: string,
+//         amka?: string,
 //         vatNumber?: string,
 //         amIKA?: string,
 //         public firstName?: string,
@@ -133,7 +97,7 @@ export class BlankPageComponent implements OnInit {
             "telephone": "6977125252",
             "municipality": "Dafni",
             "postcode":"17445"
-        }
+        };
         payload = Object.assign({},payload,obj);
         this.user.updateProfile(payload).subscribe((res => {
             this.toastr.success('Profile', 'Saved!');
@@ -152,12 +116,11 @@ export class BlankPageComponent implements OnInit {
         this.heroForm = new FormGroup({
             'name': new FormControl(this.hero.name, [
             ]),
-
         });
-        this.user.getProfile().take(1).subscribe((res: any) => {
-            this.profile = res
-            this.avatarPreviewSrc = res.avatar.fileData;
 
+        this.user.getProfile().take(1).subscribe((res: any) => {
+            this.profile = Object.assign({}, this.profile, res)
+            this.avatarPreviewSrc =  this.profile.fileData;
         }, (err) => {
 
         }
@@ -166,7 +129,6 @@ export class BlankPageComponent implements OnInit {
             .debounceTime(1000)
             .subscribe(data => {
                 console.log('Form changes', data)
-
             })
 
     }
@@ -177,7 +139,6 @@ export class BlankPageComponent implements OnInit {
 
     upload() {
         var reader = new FileReader();
-
         let fileBrowser = this.fileInput.nativeElement;
         if (fileBrowser.files && fileBrowser.files[0]) {
             const formData = new FormData();
@@ -187,11 +148,9 @@ export class BlankPageComponent implements OnInit {
                 this.profile.avatar.fileData = imgSrc;
                 this.user.updateAvatar(imgSrc).subscribe(res => {
                     // do stuff w/my uploaded file
-
                 });
             }, false);
             reader.readAsDataURL(fileBrowser.files[0]);
-
         }
     }
 

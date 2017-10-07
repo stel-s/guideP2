@@ -1,0 +1,53 @@
+
+<form [formGroup]="myForm"
+      (ngSubmit)="onSubmit(myForm.value)"
+      class="ui form">
+    <div class="field">
+        <label for="companyName">Αριθμός Δελτίου</label>
+        <input type="text"
+               id="companyName"
+               placeholder=""
+               name="companyName" [formControl]="myForm.controls['companyName']">
+    </div>
+    <div class="field">
+        <label for="companyTitle">Πελάτης</label>
+        <input type="text"
+               id="companyTitle"
+               placeholder="companyTitle"
+               name="sku" [formControl]="myForm.controls['companyTitle']">
+    </div>
+    <div class="field">
+        <label for="contactName">Hμ/μν</label>
+        <input type="date"
+               id="contactName"
+               placeholder=""
+               name="sku" [formControl]="myForm.controls['contactName']">
+    </div>
+    <div class="field">
+        <label for="vatNumber">MIKTES ΑΠΟΔΟΧΕΣ</label>
+        <input type="text"
+               id="vatNumber"
+               placeholder="vatNumber"
+               name="vatNumber" [formControl]="myForm.controls['vatNumber']">
+    </div>
+    <button type="submit" class="btn btn-primary">Αποθήκευση</button>
+</form>
+<!--<div class="form-group">-->
+    <!--<md-form-field class="example-full-width">-->
+        <!--<input-->
+            <!--minlength="4"-->
+
+
+                 <!--[(ngModel)]="model.vatNumber"-->
+                 <!--name="vatNumber"-->
+                 <!--mdInput-->
+                 <!--placeholder="ΑΦΜ"-->
+                 <!--value="">-->
+    <!--</md-form-field>-->
+    <!--<md-form-field class="example-full-width">-->
+        <!--<input mdInput-->
+               <!--required [(ngModel)]="model.companyName" name="companyName"-->
+               <!--placeholder="companyName" value="">-->
+    <!--</md-form-field>-->
+
+<!--</div>-->

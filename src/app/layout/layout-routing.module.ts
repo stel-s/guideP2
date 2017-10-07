@@ -17,6 +17,7 @@ const routes: Routes = [
             { path: 'calculator', loadChildren: './calculator/calculator.module#CalculatorModule' },
             { path: 'new-client', loadChildren: './new-client/new-client.module#NewClientModule' },
             { path: 'clients', loadChildren: './clients/clients.module#ClientsModule' },
+            { path: 'new-deltio', loadChildren: './deltia/new-deltio.module#NewDeltioModule' },
 
         ]
     }
