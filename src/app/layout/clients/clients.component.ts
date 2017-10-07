@@ -120,7 +120,7 @@ export class ClientsComponent implements  OnInit {
                 this.dataSource.filter = this.filter.nativeElement.value;
             });
 
-        this.customer.getAll().subscribe(res => this.customerList = res)
+        this.customer.getAll().subscribe(res => this.states = res.res)
     }
 
     onSubmit(f) {

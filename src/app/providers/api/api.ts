@@ -2,14 +2,13 @@ import 'rxjs/add/operator/map';
 
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, URLSearchParams } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
  */
 @Injectable()
 export class Api {
-  url: string = 'https://147.102.23.230:8449';
+  url: string = 'http://147.102.23.230:8086';
 
   constructor(public http: Http) {
   }
