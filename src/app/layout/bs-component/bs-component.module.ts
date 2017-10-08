@@ -46,6 +46,7 @@ import { PageHeaderModule } from '../../shared';
         TooltipComponent,
         TimepickerComponent,
 
-    ]
+    ],
+    exports:[        DatePickerComponent,]
 })
 export class BsComponentModule { }

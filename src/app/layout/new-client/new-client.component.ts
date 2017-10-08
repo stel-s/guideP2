@@ -47,24 +47,20 @@ export class NewClientComponent implements OnInit {
         companyName: ''
     }
     what = {
-        "companyName": "Travel Exchange",
-        "companyTitle": "Travel Exchange",
-        "contactName": "Λώρα 2",
-        "vatNumber": "0283403928",
-        "profession": "Travel Agent",
+
         "phoneNumber": "2108999999",
         "customerType": "TYPE_A",
-        "notes": "Very Nice 2",
         "uuid" : uuid()
     }
     constructor(fb: FormBuilder, public customer: Customer) {
         this.myForm = fb.group({
-            'companyName': ['Travel Exchange'],
-            'companyTitle': ['Travel Exchange'],
-            'contactName': ['Λώρα'],
-            'vatNumber': ['0283403928'],
-            'profession': ['Travel'],
-            'notes': ['Very'],
+            'companyName': [''],
+            'companyTitle': [''],
+            'contactName': [''],
+            'vatNumber': [''],
+            'profession': [''],
+            'notes': [''],
+            phoneNumber: [''],
         });
     }
     ngOnInit() {

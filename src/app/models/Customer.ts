@@ -1,6 +1,6 @@
 
 
-interface ICustomer {
+export interface ICustomer {
     "companyName": string;
     "companyTitle": string;
     "contactName": string;

@@ -58,6 +58,7 @@ interface profile1 {
 //
 // }
 
+
 @Component({
     selector: 'app-blank-page',
     templateUrl: './blank-page.component.html',

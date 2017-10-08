@@ -1,30 +1,14 @@
 <div class="container">
     <h3>
-            <a routerLink="/new-client" [routerLinkActive]="['router-link-active']">
-                <button md-raised-button color="primary" >Νέος Πελάτης     </button>
-            </a>
+        <a routerLink="/new-client" [routerLinkActive]="['router-link-active']" >
+            <button md-raised-button color="primary">Νέος Πελάτης</button>
+        </a>
 
     </h3>
     <div>
-        <form class="example-form">
-            <md-form-field class="example-full-width">
-                <input mdInput placeholder="Αναζήτηση..." aria-label="Αναζήτηση..." [mdAutocomplete]="auto" [formControl]="stateCtrl">
-                <md-autocomplete #auto="mdAutocomplete">
-
-                    <md-option *ngFor="let state of filteredStates | async" [value]="state.name">
-                        <!--<img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />-->
-                        <span>{{ state.name }}</span> |
-                        <small>afm: {{state.afm}}</small>
-                    </md-option>
-                </md-autocomplete>
-            </md-form-field>
-
-            <br />
-
-        </form>
         <div style="display:flex;position:relative">
-            <form [formGroup]="coolForm" (ngSubmit)="onSubmit(coolForm)" novalidate>
-                <input style=" padding-left: 25px;" name="first"  required formControlName="search" >
+            <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+                <input style=" padding-left: 25px;" name="first" ngModel required #search="ngModel">
                 <i style="position: absolute;left: 4px;top: 10px;"
                    class="material-icons">search</i>
 
@@ -53,15 +37,15 @@
             </ng-container>
 
             <!-- Progress Column -->
-            <ng-container mdColumnDef="progress">
-                <md-header-cell *mdHeaderCellDef> Progress</md-header-cell>
-                <md-cell *mdCellDef="let row"> {{row.progress}}%</md-cell>
+            <ng-container mdColumnDef="vatNumber">
+                <md-header-cell *mdHeaderCellDef> vatNumber</md-header-cell>
+                <md-cell *mdCellDef="let row"> {{row.vatNumber}}%</md-cell>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container mdColumnDef="userName">
                 <md-header-cell *mdHeaderCellDef> Name</md-header-cell>
-                <md-cell *mdCellDef="let row"> {{row.name}}</md-cell>
+                <md-cell *mdCellDef="let row"> {{row.companyName}}</md-cell>
             </ng-container>
 
             <!-- Color Column -->
@@ -89,12 +73,11 @@
             </button>
         </div>
         <form>
-            <select class="custom-select">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
+            <md-select placeholder="κριτηριο" [(ngModel)]="selectedValue" name="food">
+                <md-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                </md-option>
+            </md-select>
         </form>
         <div class="modal-body">
             <p>One fine body&hellip;</p>
@@ -103,4 +86,23 @@
             <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
         </div>
     </ng-template>
-</div>
+</div>{{customerList | json }}
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>ΑΦΜ</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let customer of customerList">
+        <th scope="row">1</th>
+        <td>{{customer.companyName}}</td>
+        <td>{{customer.companyName}}</td>
+        <td>{{customer.vatNumber}}</td>
+    </tr>
+    </tbody>
+</table>

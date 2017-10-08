@@ -152,7 +152,7 @@ export class User {
             this.authSuccess(res._body);
             this.token = res._body;
             // this.getProfile().subscribe(res => this.profile = res.json());
-            //localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+            // localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
         }
         // If the API returned a successful response, mark the user as logged in
         // if (res.status == 'success') {
@@ -205,6 +205,7 @@ export class User {
       //         'Content-Type': 'application/json'
       //     }
       // }).then((res)=>console.log(res.json()));
+      if(this.profile) return Observable.of(this.profile)
     let seq = this.api.get('gocore/user/private/info', '',  options);
 
 
@@ -218,7 +219,6 @@ export class User {
             // do any other checking for statuses here
         })
       .subscribe(res => {
-        console.log("res,", res)
         if(res) {
           this.profile = res;
           this.currentUser.next(this.profile)

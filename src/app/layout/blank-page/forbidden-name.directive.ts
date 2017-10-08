@@ -15,23 +15,41 @@ export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
 
 @Directive({
     selector: '[forbiddenName]',
+    host: {
+        '(focus)': 'onFocus($event)',
+        '(blur)': 'onBlur($event)'
+    },
     providers: [{ provide: NG_ASYNC_VALIDATORS, useExisting: forwardRef(() => ForbiddenValidatorDirective), multi: true }]
 })
 export class ForbiddenValidatorDirective implements Validator {
     @Input() forbiddenName: string;
+    val;
+    onFocus() {
+
+    }
+
+    onBlur() {
+
+    }
 
     constructor(public user: User) {
+        this.val= 0;
 
     }
     validate(c: AbstractControl): Promise<{ [key: string]: any }> | Observable<{ [key: string]: any }> {
+
         return this.validateUniqueEmailPromise(c.value);
 
     }
     validateUniqueEmailPromise(email: string) {
+        if(this.val < 4 )
+            return new Promise(resolve => { resolve(null); this.val ++ });
+
         return new Promise(resolve => {
             this.user.isAFMAvailable(email).map(res => res.json()).take(1)
                 .subscribe((res) => {
                     console.log(res)
+                    this.val = 2;
                     if (!res) {
                         resolve({
                             asyncValid: true

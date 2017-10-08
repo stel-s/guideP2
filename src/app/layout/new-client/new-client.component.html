@@ -14,14 +14,14 @@
         <input type="text"
                id="companyTitle"
                placeholder="companyTitle"
-               name="sku" [formControl]="myForm.controls['companyTitle']">
+               name="companyTitle" [formControl]="myForm.controls['companyTitle']">
     </div>
     <div class="field">
         <label for="contactName">contactName</label>
         <input type="text"
                id="contactName"
                placeholder="contactName"
-               name="sku" [formControl]="myForm.controls['contactName']">
+               name="contactName" [formControl]="myForm.controls['contactName']">
     </div>
     <div class="field">
         <label for="vatNumber">ΑΦΜ</label>
@@ -29,6 +29,13 @@
                id="vatNumber"
                placeholder="vatNumber"
                name="vatNumber" [formControl]="myForm.controls['vatNumber']">
+    </div>
+    <div class="field">
+        <label for="phoneNumber">phoneNumber</label>
+        <input type="text"
+               id="phoneNumber"
+               placeholder="phoneNumber"
+               name="phoneNumber" [formControl]="myForm.controls['phoneNumber']">
     </div>
     <div class="field">
         <label for="profession">profession</label>
@@ -39,7 +46,7 @@
     </div>
     <div class="field">
         <label for="notes">notes</label>
-        <input type="text"
+        <input type="search"
                id="notes"
                placeholder="notes"
                name="notes" [formControl]="myForm.controls['notes']">

@@ -27,8 +27,12 @@ import { Customer } from '../../providers/providers';
 
 //////END///////
 
-
-
+import { ICustomer} from '../../models/Customer'
+interface Pet {
+    name: string;
+    type: string;
+    age: number;
+}
 @Component({
     selector: 'clients',
     templateUrl: './clients.component.html',
@@ -41,9 +45,9 @@ export class ClientsComponent implements  OnInit {
     coolForm: FormGroup;
     selectedValue: string;
     closeResult: string;
-    displayedColumns = ['userId', 'userName', 'progress', 'color'];
+    displayedColumns = ['userId', 'userName', 'vatNumber', 'color'];
     exampleDatabase = new ExampleDatabase();
-    dataSource: ExampleDataSource | null;
+    dataSource: any;
     customerList;
     @ViewChild('filter') filter: ElementRef;
 
@@ -109,18 +113,35 @@ export class ClientsComponent implements  OnInit {
         return this.states.filter(state =>
         state.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
     }
+    myPets = [
+        { name: 'Boots', type: 'Cat', age: 2 },
+
+    ];
+
+    dataSource2: PetDataSource;
 
     ngOnInit() {
-        this.dataSource = new ExampleDataSource(this.exampleDatabase);
-        Observable.fromEvent(this.filter.nativeElement, 'keyup')
-            .debounceTime(150)
-            .distinctUntilChanged()
-            .subscribe(() => {
-                if (!this.dataSource) { return; }
-                this.dataSource.filter = this.filter.nativeElement.value;
-            });
+        // this.dataSource = new PetDataSource(this.myPets);
+        // Observable.fromEvent(this.filter.nativeElement, 'keyup')
+        //     .debounceTime(150)
+        //     .distinctUntilChanged()
+        //     .subscribe(() => {
+        //         if (!this.dataSource) { return; }
+        //         this.dataSource.filter = this.filter.nativeElement.value;
+        //     });
+        //
+        this.customer.getAll()
+            .subscribe(res => {
+                this.states = res.restCustomerList.map((item) => {
+                    return {vatNumber:item.vatNumber, companyName:item.companyName}
+                })
+                console.log(this.states)
+                this.customerList =  this.states ;
+                // this.dataSource = new ExampleDataSource();
+                this.exampleDatabase.addUser()
+                this.dataSource = new PetDataSource(this.states);
 
-        this.customer.getAll().subscribe(res => this.states = res.res)
+            })
     }
 
     onSubmit(f) {
@@ -161,7 +182,7 @@ export interface UserData {
 /** An example database that the data source uses to retrieve data for the table. */
 export class ExampleDatabase {
     /** Stream that emits whenever the data has been modified. */
-    dataChange: BehaviorSubject<UserData[]> = new BehaviorSubject<UserData[]>([]);
+    public dataChange: BehaviorSubject<UserData[]> = new BehaviorSubject<UserData[]>([]);
     get data(): UserData[] { return this.dataChange.value; }
 
     constructor() {
@@ -216,13 +237,26 @@ export class ExampleDataSource extends DataSource<any> {
             this._filterChange,
         ];
 
-        return Observable.merge(...displayDataChanges).map(() => {
+        ;return Observable.merge(...displayDataChanges).map(() => {
             return this._exampleDatabase.data.slice().filter((item: UserData) => {
                 let searchStr = (item.name + item.color).toLowerCase();
                 return searchStr.indexOf(this.filter.toLowerCase()) != -1;
             });
-        });
+        })
     }
 
     disconnect() {}
+}
+
+export class PetDataSource extends DataSource<Pet> {
+
+    constructor(private pets: Pet[]) {
+        super();
+    }
+
+    connect(): Observable<Pet[]> {
+        return Observable.of(this.pets);
+    }
+    disconnect() {}
+
 }

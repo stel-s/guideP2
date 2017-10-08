@@ -11,6 +11,7 @@ import { MdButtonModule, MdCheckboxModule } from '@angular/material';
 import { ForbiddenValidatorDirective } from './forbidden-name.directive';
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
+import { BsComponentModule } from '../bs-component/bs-component.module'
 
 @NgModule({
   imports: [MdButtonModule,
@@ -22,7 +23,9 @@ import { AvatarModule } from 'ngx-avatar';
       TranslateModule,
       ReactiveFormsModule,
       // Specify AvatarModule as an import
-      AvatarModule
+      AvatarModule,
+      BsComponentModule,
+
   ],
   declarations: [CalculatorComponent,ForbiddenValidatorDirective]
 })
