@@ -68,6 +68,19 @@ export class Customer {
         return seq;
     }
 
+    deleteCustomer(uuid) {
+
+        let options = new RequestOptions();
+        let myHeaders = new Headers();
+        myHeaders.append('Authorization', 'Bearer ' + this.token );
+        myHeaders.get('Content-Type');
+        options.headers = myHeaders;
+
+
+        let seq = this.api.post(`gocore/customer/delete/${uuid}`, {},options).share();
+        return seq;
+    }
+
     getAll() {
 
         let options = new RequestOptions();

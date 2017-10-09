@@ -307,6 +307,7 @@ export class User {
     // this.error = null;
     console.log(token);
     localStorage.setItem('token', token);
+    this.token = token;
     this._user = this.jwtHelper.decodeToken(token);
     localStorage.setItem('profile', this._user.toString());
   }

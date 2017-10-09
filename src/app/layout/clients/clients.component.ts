@@ -45,7 +45,7 @@ export class ClientsComponent implements  OnInit {
     coolForm: FormGroup;
     selectedValue: string;
     closeResult: string;
-    displayedColumns = ['userId', 'userName', 'vatNumber', 'color'];
+    displayedColumns = ['userId', 'companyName','companyTitle','vatNumber', 'phoneNumber', 'color'];
     exampleDatabase = new ExampleDatabase();
     dataSource: any;
     customerList;
@@ -133,12 +133,10 @@ export class ClientsComponent implements  OnInit {
         this.customer.getAll()
             .subscribe(res => {
                 this.states = res.restCustomerList.map((item) => {
-                    return {vatNumber:item.vatNumber, companyName:item.companyName}
+                    return item
                 })
                 console.log(this.states)
                 this.customerList =  this.states ;
-                // this.dataSource = new ExampleDataSource();
-                this.exampleDatabase.addUser()
                 this.dataSource = new PetDataSource(this.states);
 
             })
@@ -166,8 +164,20 @@ export class ClientsComponent implements  OnInit {
         }
     }
 
-    onSelect(hero){
-        console.log(hero)
+    onSelect(row){
+        this.customer.deleteCustomer(row.uuid).subscribe((res) => {
+            this.customer.getAll()
+                .subscribe(res => {
+                    this.states = res.restCustomerList.map((item) => {
+                        return item
+                    })
+                    console.log(this.states)
+                    this.customerList =  this.states ;
+                    this.dataSource = new PetDataSource(this.states);
+
+                })
+        });
+        console.log(row)
     }
 }
 
