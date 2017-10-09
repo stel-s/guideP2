@@ -122,14 +122,14 @@ export class ClientsComponent implements  OnInit {
 
     ngOnInit() {
         // this.dataSource = new PetDataSource(this.myPets);
-        // Observable.fromEvent(this.filter.nativeElement, 'keyup')
-        //     .debounceTime(150)
-        //     .distinctUntilChanged()
-        //     .subscribe(() => {
-        //         if (!this.dataSource) { return; }
-        //         this.dataSource.filter = this.filter.nativeElement.value;
-        //     });
-        //
+        Observable.fromEvent(this.filter.nativeElement, 'keyup')
+            .debounceTime(150)
+            .distinctUntilChanged()
+            .subscribe(() => {
+                if (!this.dataSource) { return; }
+                this.dataSource.filter = this.filter.nativeElement.value;
+            });
+
         this.customer.getAll()
             .subscribe(res => {
                 this.states = res.restCustomerList.map((item) => {
@@ -164,6 +164,10 @@ export class ClientsComponent implements  OnInit {
         } else {
             return  `with: ${reason}`;
         }
+    }
+
+    onSelect(hero){
+        console.log(hero)
     }
 }
 

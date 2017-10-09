@@ -8,6 +8,8 @@ import {MdTableModule} from '@angular/material';
 
 import { ClientsRoutingModule } from './clients-routing.module';
 import { ClientsComponent } from './clients.component';
+import { ClientsDetailComponent } from './clients-detail.component/clients-detail.component';
+
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import {
     MdButtonModule,
@@ -42,8 +44,8 @@ import { SearchModule } from '../search-component/search.module'
       MdTableModule,
       MdMenuModule,
       NgbModule.forRoot(),
-      SearchModule
+      SearchModule,
   ],
-  declarations: [ClientsComponent]
+  declarations: [ClientsComponent,ClientsDetailComponent]
 })
 export class ClientsModule { }

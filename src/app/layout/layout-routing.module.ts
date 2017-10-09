@@ -18,8 +18,10 @@ const routes: Routes = [
             { path: 'new-client', loadChildren: './new-client/new-client.module#NewClientModule' },
             { path: 'clients', loadChildren: './clients/clients.module#ClientsModule' },
             { path: 'new-deltio', loadChildren: './deltia/new-deltio.module#NewDeltioModule' },
+            { path: 'clients/:id', loadChildren: './clients/clients.module#ClientsModule' }
 
         ]
+
     }
 ];
 

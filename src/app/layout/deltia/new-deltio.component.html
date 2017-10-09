@@ -2,6 +2,8 @@
 <form [formGroup]="myForm"
       (ngSubmit)="onSubmit(myForm.value)"
       class="ui form">
+    <app-date-picker></app-date-picker>
+
     <div class="field">
         <label for="companyName">Αριθμός Δελτίου</label>
         <input type="text"
