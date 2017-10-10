@@ -6,9 +6,10 @@ import 'rxjs/add/operator/catch';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Router, NavigationEnd } from '@angular/router';
 
-import {Observable, Subject} from 'rxjs'
-import {Injectable} from '@angular/core';
-import {Http, URLSearchParams, Jsonp, RequestOptions, Headers} from '@angular/http';
+import { Observable, Subject } from 'rxjs'
+import { Injectable } from '@angular/core';
+import { URLSearchParams, Jsonp, RequestOptions, Headers} from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import {Api} from '../api/api';
 
@@ -41,13 +42,14 @@ interface IUser {
 
 @Injectable()
 export class User {
+  url: string = 'http://147.102.23.230:8086';
   _user: IUser;
   profile: any;
   token: string;
   jwtHelper = new JwtHelper();
   currentUser: Subject<IUser> = new BehaviorSubject<User>(null);
 
-  constructor(public http: Http, public api: Api, public router: Router) {
+  constructor(public http: HttpClient, public api: Api, public router: Router) {
       this.token = localStorage.getItem('token');
   }
   public setCurrentUser(newUser:any): void {
@@ -60,9 +62,9 @@ export class User {
     search.set('action', 'opensearch');
     search.set('search', term);
     search.set('format', 'json');
-    return this.http
-      .get('http://en.wikipedia.org/w/api.php?callback=JSONP_CALLBACK', {search})
-      .map((response) => response.json()[1]);
+    // return this.http
+    //   .get('http://en.wikipedia.org/w/api.php?callback=JSONP_CALLBACK', {search})
+    //   .map((response) => response.json()[1]);
   }
 
   get firstName() {
@@ -132,17 +134,22 @@ export class User {
    * the user entered on the form.
    */
   login(accountInfo: any) {
-      let headers = new HttpHeaders();
-       let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-          let options = new RequestOptions({ headers: headers });
-    let seq = this.api.post('gocore/authenticate', accountInfo).share();
+     var firstHeaders = new Headers();
+    firstHeaders.append('Content-Type', 'text/html');
+    let options = new RequestOptions({ headers: firstHeaders });
+      // let headers = new HttpHeaders();
+      //  let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+      //    
+        let seq =  this.http.post(this.url + '/gocore/authenticate', accountInfo, { responseType: 'text' });
+    // let seq = this.api.post('gocore/authenticate', accountInfo , options).share();
 
     seq
       .map(res => res)
       .subscribe((res:any) => {
         if (res) {
-            this.authSuccess(res._body);
-            this.token = res._body;
+            console.error('response',res);
+            this.authSuccess(res);
+            this.token = res;
             // this.getProfile().subscribe(res => this.profile = res.json());
             // localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
         }
@@ -157,7 +164,9 @@ export class User {
 
     return seq;
   }
-
+  getToken() {
+    return {  headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token)}
+  }
   /**
    * Send a POST request to our signup endpoint with the data
    * the user entered on the form.
@@ -181,29 +190,14 @@ export class User {
 
   getProfile() {
 
-      let options = new RequestOptions();
-      let myHeaders = new Headers();
-      myHeaders.append('Authorization', 'Bearer ' + this.token );
-      myHeaders.get('Content-Type')
-
-      options.headers = myHeaders;
-
-
-      // should return 'text/xml'
-      // fetch('https://147.102.23.230:8449/gocore/user/private/info', {
-      //     method: 'get',
-      //     headers: {
-      //         'Authorization': 'Bearer '+ this.token,
-      //         'Content-Type': 'application/json'
-      //     }
-      // }).then((res)=>console.log(res.json()));
-      if(this.profile) return Observable.of(this.profile)
-    let seq = this.api.get('gocore/user/private/info', '',  options);
-
-
+      if(this.profile) {
+        this.currentUser.next(this.profile)
+        return Observable.of(this.profile)
+      }
+      let seq = this.http.get(this.url + '/gocore/user/private/info', this.getToken());
 
     seq
-      .map((res:any)=> JSON.parse(res._body))
+      .map((res:any)=> res)
         .catch(e => {
             if (e.status === 401) {
                 return Observable.throw('Unauthorized');
@@ -211,24 +205,13 @@ export class User {
             // do any other checking for statuses here
         })
       .subscribe(res => {
-        if(res) {
-          this.profile = res;
-          this.currentUser.next(this.profile)
-        }
-
-        // If the API returned a successful response, mark the user as logged in
-        if (res.status == 'success') {
-          this._loggedIn(res);
-        }
-      }, err => {
-        if (err === 'Unauthorized') {
-            this.router.navigate(['/login']);
-                      console.error('Unauthorized', err);
-               }
-        console.error('ERROR', err);
+          if(res) {
+            this.profile = res;
+            this.currentUser.next(this.profile)
+          }
       });
 
-   return seq.map((res:any) => JSON.parse(res._body));
+   return seq.map((res:any) => res);
   }
 
 
@@ -241,7 +224,7 @@ export class User {
       options.headers = myHeaders;
 
 
-      let seq = this.api.post('gocore/user/update/guide', profile, options).share();
+      let seq = this.api.post(this.url + '/gocore/user/update/guide', profile, this.getToken()).share();
 
     // seq
     //   .map(res => res)
@@ -264,7 +247,7 @@ export class User {
     myHeaders.get('Content-Type');
     options.headers = myHeaders;
     let req = { "contentType": "image/png","fileData": avatar};
-    let seq = this.api.post('gocore/user/upload/avatar', req , options).share();
+    let seq = this.http.post(this.url + '/gocore/user/upload/avatar', req , this.getToken()).share();
 
 
 

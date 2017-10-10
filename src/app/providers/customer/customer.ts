@@ -8,7 +8,8 @@ import { Router, NavigationEnd } from '@angular/router';
 
 import {Observable, Subject} from 'rxjs'
 import {Injectable} from '@angular/core';
-import {Http, URLSearchParams, Jsonp, RequestOptions, Headers} from '@angular/http';
+import { URLSearchParams, Jsonp, RequestOptions} from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import {Api} from '../api/api';
 
@@ -46,51 +47,30 @@ export class Customer {
     token: string;
     jwtHelper = new JwtHelper();
     currentUser: Subject<ICustomer> = new BehaviorSubject<ICustomer>(null);
+    url: string = 'http://147.102.23.230:8086';
 
-    constructor(public http: Http, public api: Api, public router: Router) {
+    constructor(public http: HttpClient, public api: Api, public router: Router) {
         this.token = localStorage.getItem('token');
     }
     public setCurrentUser(newUser:any): void {
         this.currentUser.next(newUser);
     }
 
-
     createCustomer(customer) {
         console.log(customer)
-        let options = new RequestOptions();
-        let myHeaders = new Headers();
-        myHeaders.append('Authorization', 'Bearer ' + this.token );
-        myHeaders.get('Content-Type');
-        options.headers = myHeaders;
-
-
-        let seq = this.api.post('gocore/customer/createOrUpdate', customer, options).share();
+        let seq = this.api.post('/gocore/customer/createOrUpdate', customer, this.getToken()).share();
         return seq;
     }
-
+     getToken() {
+        return {  headers: new HttpHeaders().set('Authorization', 'Bearer ' +   localStorage.getItem('token'))}
+    }
     deleteCustomer(uuid) {
-
-        let options = new RequestOptions();
-        let myHeaders = new Headers();
-        myHeaders.append('Authorization', 'Bearer ' + this.token );
-        myHeaders.get('Content-Type');
-        options.headers = myHeaders;
-
-
-        let seq = this.api.post(`gocore/customer/delete/${uuid}`, {},options).share();
+        let seq = this.http.post(`gocore/customer/delete/${uuid}`,{}).share();
         return seq;
     }
 
     getAll() {
-
-        let options = new RequestOptions();
-        let myHeaders = new Headers();
-        myHeaders.append('Authorization', 'Bearer ' + this.token );
-        myHeaders.get('Content-Type');
-        options.headers = myHeaders;
-
-
-        let seq = this.api.get('gocore/customer/list/0/0', '', options).map(res => res);
+        let seq = this.http.get(this.url + '/gocore/customer/list/0/0', this.getToken()).map(res => res);
         return seq;
     }
 

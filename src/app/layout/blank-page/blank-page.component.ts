@@ -147,6 +147,7 @@ export class BlankPageComponent implements OnInit {
             reader.addEventListener("load",  () => {
                 let imgSrc = reader.result.split(',')[1];
                 this.profile.avatar.fileData = imgSrc;
+                this.user.currentUser.next(this.profile)
                 this.user.updateAvatar(imgSrc).subscribe(res => {
                     // do stuff w/my uploaded file
                 });

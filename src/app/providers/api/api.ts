@@ -2,7 +2,7 @@ import 'rxjs/add/operator/map';
 
 import { Injectable } from '@angular/core';
 import {  RequestOptions, URLSearchParams,Headers } from '@angular/http';
-import {HttpClientModule, HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
@@ -14,13 +14,13 @@ export class Api {
   constructor(public http: HttpClient) {
   }
 
-  get(endpoint: string, params?: any, options?: RequestOptions) {
-    if (!options) {
-      options = new RequestOptions();
-    }
-      var headers = new Headers();
-      headers.append('Content-Type', 'application/x-www-form-urlencoded');
-      options = new RequestOptions({ headers: headers });
+  get(endpoint: string, params?: any, options?: any) {
+    // if (!options) {
+    //   options = new RequestOptions();
+    // }
+      // var headers = new Headers();
+      // headers.append('Content-Type', 'application/x-www-form-urlencoded');
+      // options = new RequestOptions({ headers: headers });
     // let headers = new HttpHeaders();
     //  let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
     //     let options = new RequestOptions({ headers: headers });
@@ -34,11 +34,13 @@ export class Api {
     //   options.search = !options.search && p || options.search;
     // }
 
-      return this.http.get(this.url + '/' + endpoint);
+      return this.http.get(this.url + '/' + endpoint, options);
   }
 
-  post(endpoint: string, body: any, options?: RequestOptions) {
-    return this.http.post(this.url + '/' + endpoint, body);
+  post(endpoint: string, body: any, options?: any) {
+
+  
+    return this.http.post(this.url + '/' + endpoint, body, options);
   }
 
   put(endpoint: string, body: any, options?: RequestOptions) {

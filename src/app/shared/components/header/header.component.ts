@@ -43,6 +43,7 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
         this.user.currentUser.subscribe((x:any) => {
             if (x) {
+                console.log("new cu",x)
                 this.profile = Object.assign({},this.profile,x);
             }
         });
