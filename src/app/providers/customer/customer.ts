@@ -47,6 +47,8 @@ export class Customer {
     token: string;
     jwtHelper = new JwtHelper();
     currentUser: Subject<ICustomer> = new BehaviorSubject<ICustomer>(null);
+    customers: Subject<any> = new BehaviorSubject<any>(null);
+
     url: string = 'http://147.102.23.230:8086';
 
     constructor(public http: HttpClient, public api: Api, public router: Router) {
@@ -65,12 +67,13 @@ export class Customer {
         return {  headers: new HttpHeaders().set('Authorization', 'Bearer ' +   localStorage.getItem('token'))}
     }
     deleteCustomer(uuid) {
-        let seq = this.http.post(this.url + `/gocore/customer/delete/${uuid}`,{}).share();
+        let seq = this.http.post(this.url + `/gocore/customer/delete/${uuid}`,{}, this.getToken()).share();
         return seq;
     }
 
     getAll() {
         let seq = this.http.get(this.url + '/gocore/customer/list/0/0', this.getToken()).map(res => res);
+        this.customers.next
         return seq;
     }
 

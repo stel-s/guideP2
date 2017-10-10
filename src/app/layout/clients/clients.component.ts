@@ -114,32 +114,27 @@ export class ClientsComponent implements  OnInit {
         return this.states.filter(state =>
         state.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
     }
-    myPets = [
-        { name: 'Boots', type: 'Cat', age: 2 },
-
-    ];
-
     dataSource2: PetDataSource;
 
     ngOnInit() {
         // this.dataSource = new PetDataSource(this.myPets);
-        Observable.fromEvent(this.filter.nativeElement, 'keyup')
-            .debounceTime(150)
-            .distinctUntilChanged()
-            .subscribe(() => {
-                if (!this.dataSource) { return; }
-                this.dataSource.filter = this.filter.nativeElement.value;
-            });
+
 
         this.customer.getAll()
             .subscribe((res:any) => {
                 this.states = res.restCustomerList.map((item) => {
                     return item
                 })
-                console.log(this.states)
                 this.customerList =  this.states ;
                 this.dataSource = new PetDataSource(this.states);
-
+                Observable.fromEvent(this.filter.nativeElement, 'keyup')
+                    .debounceTime(150)
+                    .distinctUntilChanged()
+                    .subscribe((res) => {
+                    console.log(res)
+                        if (!this.dataSource) { return; }
+                        this.dataSource.filter = this.filter.nativeElement.value;
+                    });
             })
     }
 
@@ -264,13 +259,25 @@ export class ExampleDataSource extends DataSource<any> {
 }
 
 export class PetDataSource extends DataSource<Pet> {
+    _filterChange = new BehaviorSubject('');
+    get filter(): string { return this._filterChange.value; }
+    set filter(filter: string) { this._filterChange.next(filter); }
 
     constructor(private pets: Pet[]) {
-        super();
+        super()
     }
 
     connect(): Observable<Pet[]> {
-        return Observable.of(this.pets);
+        const displayDataChanges = [
+            this.pets,
+            this._filterChange,
+        ];
+        return Observable.merge(...displayDataChanges).map(() => {
+            return this.pets.slice().filter((item: any) => {
+                let searchStr = item.companyName
+                return searchStr.indexOf(this.filter.toLowerCase()) != -1;
+            });
+        })
     }
     disconnect() {}
 

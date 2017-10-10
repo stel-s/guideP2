@@ -71,6 +71,7 @@ export class NewClientComponent implements OnInit {
         let pay = Object.assign({}, value, this.what)
         this.customer.createCustomer(pay)
             .subscribe((r) => console.log(r))
+        //this.customer.getAll().next("s")
         console.log('you submitted value: ', value);
     }
 }
