@@ -75,7 +75,7 @@ export class User {
 
 
     let seq = this.api.get(`gocore/user/isAvailable/email/${USERNAME}`)
-        .map((res:any) => res.json())
+        .map((res:any) => res)
 
 
       // .subscribe(res => {
@@ -122,18 +122,7 @@ export class User {
 
     let seq = this.api.get(`gocore/user/isAvailable/ssn/${term}`).share();
 
-    seq
-      .map(res => res.json())
-      .subscribe(res => {
-        console.log(res);
-        // If the API returned a successful response, mark the user as logged in
-        if (res.status == 'success') {
 
-        } else {
-        }
-      }, err => {
-        console.error('ERROR', err);
-      });
 
     return seq;
   }
@@ -143,6 +132,9 @@ export class User {
    * the user entered on the form.
    */
   login(accountInfo: any) {
+      let headers = new HttpHeaders();
+       let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+          let options = new RequestOptions({ headers: headers });
     let seq = this.api.post('gocore/authenticate', accountInfo).share();
 
     seq
@@ -172,17 +164,17 @@ export class User {
    */
   signup(accountInfo) {
     let seq = this.api.post('gocore/user/create/guide', accountInfo).share();
-
-    seq
-      .map(res => res.json())
-      .subscribe(res => {
-        // If the API returned a successful response, mark the user as logged in
-        if (res.status == 'success') {
-          this._loggedIn(res);
-        }
-      }, err => {
-        console.error('ERROR', err);
-      });
+    //
+    // seq
+    //   .map(res => res)
+    //   .subscribe(res => {
+    //     // If the API returned a successful response, mark the user as logged in
+    //     if (res.status == 'success') {
+    //       this._loggedIn(res);
+    //     }
+    //   }, err => {
+    //     console.error('ERROR', err);
+    //   });
 
     return seq;
   }
@@ -274,17 +266,7 @@ export class User {
     let req = { "contentType": "image/png","fileData": avatar};
     let seq = this.api.post('gocore/user/upload/avatar', req , options).share();
 
-    seq
-      .map(res => res.json())
-      .subscribe(res => {
-         this.getProfile();
-        // If the API returned a successful response, mark the user as logged in
-        if (res.status == 'success') {
-          this._loggedIn(res);
-        }
-      }, err => {
-        console.error('ERROR', err);
-      });
+
 
     return seq;
   }

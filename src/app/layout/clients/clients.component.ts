@@ -131,7 +131,7 @@ export class ClientsComponent implements  OnInit {
             });
 
         this.customer.getAll()
-            .subscribe(res => {
+            .subscribe((res:any) => {
                 this.states = res.restCustomerList.map((item) => {
                     return item
                 })
@@ -167,7 +167,7 @@ export class ClientsComponent implements  OnInit {
     onSelect(row){
         this.customer.deleteCustomer(row.uuid).subscribe((res) => {
             this.customer.getAll()
-                .subscribe(res => {
+                .subscribe((res:any) => {
                     this.states = res.restCustomerList.map((item) => {
                         return item
                     })

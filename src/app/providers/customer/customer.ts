@@ -90,7 +90,7 @@ export class Customer {
         options.headers = myHeaders;
 
 
-        let seq = this.api.get('gocore/customer/list/0/0', '', options).map(res => res.json());
+        let seq = this.api.get('gocore/customer/list/0/0', '', options).map(res => res);
         return seq;
     }
 

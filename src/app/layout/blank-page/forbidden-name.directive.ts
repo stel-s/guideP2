@@ -46,9 +46,8 @@ export class ForbiddenValidatorDirective implements Validator {
             return new Promise(resolve => { resolve(null); this.val ++ });
 
         return new Promise(resolve => {
-            this.user.isAFMAvailable(email).map(res => res.json()).take(1)
+            this.user.isAFMAvailable(email).map(res => res).take(1)
                 .subscribe((res) => {
-                    console.log(res)
                     this.val = 2;
                     if (!res) {
                         resolve({
