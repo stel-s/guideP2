@@ -1,7 +1,7 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
     <ul class="list-group">
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Dashboard' | translate }}
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Αρχική' | translate }}
         </a>
         <!--<a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">-->
             <!--<i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;{{ 'Charts' | translate }}-->
@@ -19,40 +19,40 @@
             <!--<i class="fa fa-fw fa-wrench"></i>&nbsp;{{ 'Boostrap Grid' | translate }}-->
         <!--</a>-->
         <a routerLink="/calculator" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Calculator' | translate }}
+            <i class="fa fa-fw fa-calculator"></i>&nbsp;{{ 'Υπολογισμός' | translate }}
         </a>
         <a routerLink="/clients" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-th-list"></i>&nbsp;{{ 'clients' | translate }}
+            <i class="fa fa-fw fa-th-list"></i>&nbsp;{{ 'Πελάτες' | translate }}
         </a>
-        <a routerLink="/new-deltio" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-plus"></i>&nbsp;{{ 'Νεο Δελτίο' | translate }}
-        </a>
+
         <a routerLink="/deltia" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Δελτία' | translate }}
+            <i class="fa fa-fw  fa-newspaper-o"></i>&nbsp;{{ 'Δελτία' | translate }}
         </a>
         <!--<a [routerLink]="['/components']" [routerLinkActive]="['router-link-active']" class="list-group-item">-->
             <!--<i class="fa fa-th-list"></i>&nbsp;{{ 'Component' | translate }}-->
         <!--</a>-->
-        <!--<div class="nested-menu">-->
-            <!--<a class="list-group-item" (click)="addExpandClass('pages')">-->
-                <!--<span><i class="fa fa-plus"></i>&nbsp; {{ 'Menu' | translate }}</span>-->
-            <!--</a>-->
-            <!--<li class="nested" [class.expand]="showMenu === 'pages'">-->
-                <!--<ul class="submenu">-->
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <span><i class="fa fa-plus"></i>&nbsp; {{ 'Menu' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a routerLink="/new-deltio" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-fw fa-plus"></i>&nbsp;{{ 'Νεο Δελτίο' | translate }}
+                        </a>
+                    </li>
                     <!--<li>-->
                         <!--<a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>-->
                     <!--</li>-->
                     <!--<li>-->
                         <!--<a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>-->
                     <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-        <!--</div>-->
+                </ul>
+            </li>
+        </div>
         <a [routerLink]="['/profile']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-file-o"></i>&nbsp;{{ 'Profile' | translate }}
+            <i class="fa fa-user"></i>&nbsp;{{ 'Profile' | translate }}
         </a>
         <!--<a class="list-group-item more-themes" href="http://www.strapui.com/" >-->
             <!--{{ 'More Theme' | translate }}-->

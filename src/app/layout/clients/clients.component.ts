@@ -147,7 +147,7 @@ export class ClientsComponent implements  OnInit {
 
     }
 
-    open(content) {
+    open() {
         this.modalService.open(NewClientComponent).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
