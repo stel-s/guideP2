@@ -26,6 +26,7 @@ import { User } from '../../providers/providers';
 import { Customer } from '../../providers/providers';
 
 //////END///////
+import { NewClientComponent } from '../new-client/new-client.component';
 
 import { ICustomer} from '../../models/Customer'
 interface Pet {
@@ -147,7 +148,7 @@ export class ClientsComponent implements  OnInit {
     }
 
     open(content) {
-        this.modalService.open(content).result.then((result) => {
+        this.modalService.open(NewClientComponent).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
             this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

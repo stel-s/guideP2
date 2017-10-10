@@ -58,14 +58,14 @@ export class Customer {
 
     createCustomer(customer) {
         console.log(customer)
-        let seq = this.api.post('/gocore/customer/createOrUpdate', customer, this.getToken()).share();
+        let seq = this.http.post(this.url + '/gocore/customer/createOrUpdate', customer, this.getToken()).share();
         return seq;
     }
      getToken() {
         return {  headers: new HttpHeaders().set('Authorization', 'Bearer ' +   localStorage.getItem('token'))}
     }
     deleteCustomer(uuid) {
-        let seq = this.http.post(`gocore/customer/delete/${uuid}`,{}).share();
+        let seq = this.http.post(this.url + `/gocore/customer/delete/${uuid}`,{}).share();
         return seq;
     }
 

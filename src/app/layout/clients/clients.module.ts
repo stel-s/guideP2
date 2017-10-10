@@ -9,6 +9,8 @@ import {MdTableModule} from '@angular/material';
 import { ClientsRoutingModule } from './clients-routing.module';
 import { ClientsComponent } from './clients.component';
 import { ClientsDetailComponent } from './clients-detail.component/clients-detail.component';
+import { NewClientComponent } from '../new-client/new-client.component';
+import { NewClientModule } from '../new-client/new-client.module';
 
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import {
@@ -45,7 +47,11 @@ import { SearchModule } from '../search-component/search.module'
       MdMenuModule,
       NgbModule.forRoot(),
       SearchModule,
+      NewClientModule
   ],
+  entryComponents: [ NewClientComponent ],
+
+
   declarations: [ClientsComponent,ClientsDetailComponent]
 })
 export class ClientsModule { }
