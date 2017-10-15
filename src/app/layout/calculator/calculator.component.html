@@ -22,31 +22,31 @@
     <hr>
     <div style="display:flex">
         <div style="display:flex;flex-direction:column">
-            <div>
+            <div class="amounts">
                 Ποσό που αναγραφω δεξια πανω
             </div>
-            <div>
+            <div class="amounts">
                 ΙΚΑ/ΤΕΑΜ (16Χ)
             </div>
-            <div>
+            <div class="amounts">
                 Πληρωτέο
             </div>
-            <div>
+            <div class="amounts">
                 Πληρωτέο
             </div>
         </div>
         <div style="display:flex;flex-direction:column">
-            <div>
-                <span style="border: 1px solid;margin-left:20px">$ {{model.grossAmount}}</span>
+            <div class="amounts">
+                <span class="amounts" style="border: 1px solid;margin-left:20px">$ {{model.grossAmount}}</span>
             </div>
-            <div>
-                <span style="border: 1px solid;margin-left:20px">$ {{model.employeeInsuranceAmount}}</span>
+            <div class="amounts">
+                <span class="amounts"  style="border: 1px solid;margin-left:20px">$ {{model.employeeInsuranceAmount}}</span>
             </div>
-            <div>
-                <span style="border: 1px solid;margin-left:20px;background-color: yellow;">$ {{model.employerInsuranceAmount}}</span>
-            </div>
-            <div>
-                <span style="border: 1px solid;margin-left:20px;background-color: yellow;">$ {{model.paidAmount}}</span>
+            <div class="amounts">
+                <span class="amounts"  style="border: 1px solid;margin-left:20px;background-color: yellow;">$ {{model.employerInsuranceAmount}}</span>
+            </div >
+            <div class="amounts">
+                <span class="amounts"  style="border: 1px solid;margin-left:20px;background-color: yellow;">$ {{model.paidAmount}}</span>
             </div>
         </div>
 
