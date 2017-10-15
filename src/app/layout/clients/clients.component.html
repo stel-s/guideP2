@@ -19,6 +19,9 @@
             </form>
         </div>
     </div>
+    <md-checkbox [formControl]="form" [ngModel]="checked" (click)="selectAll($event)">
+        select all
+    </md-checkbox>
     <div class="example-container mat-elevation-z8">
         <div class="example-header">
             <md-form-field floatPlaceholder="never">

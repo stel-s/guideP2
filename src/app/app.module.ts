@@ -2,16 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AuthGuard } from './shared';
-import {
-    MdAutocompleteModule,
+import {MdAutocompleteModule,
     MdButtonModule,
     MdButtonToggleModule,
     MdCardModule,
@@ -43,9 +34,19 @@ import {
     MdTooltipModule,
     MdStepperModule,
 } from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AuthGuard } from './shared';
+
 ////
 import { Settings } from './providers/providers';
 import { User } from './providers/providers';
+import { Invoices } from './providers/providers';
+
 import { Customer } from './providers/providers';
 import { Api } from './providers/providers';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
@@ -128,8 +129,8 @@ export function HttpLoaderFactory(http: Http) {
             multi: true,
         },
             User,
-             Customer,
-
+            Customer,
+            Invoices,
             UsernameValidator,
     ],
     bootstrap: [AppComponent]

@@ -92,6 +92,7 @@ export class User {
         return seq;
     }
 
+
     login(accountInfo: any) {
 
         let seq = this.http.post(this.url + '/gocore/authenticate', accountInfo, {responseType: 'text'});

@@ -7,8 +7,17 @@ import { NgForm } from '@angular/forms';
 
 ////Providers/////
 import { User } from '../../providers/providers';
+import { Invoices } from '../../providers/providers';
+
 //////END///////
 
+let calcs = {
+    "netAmount": 100.55,
+    "grossAmount": 119.7,
+    "employeeInsuranceAmount": 19.15,
+    "employerInsuranceAmount": 30,
+    "paidAmount": 149.7
+}
 
 @Component({
     selector: 'calculator',
@@ -33,15 +42,18 @@ export class CalculatorComponent implements OnInit {
         municipality: "Dafni",
         postcode:"17445"
     }
-    hero = {name: 'Dr.'};
-    heroForm: FormGroup;
-    vatNumber;
+
+
+
     model = {
-        ika: 0,
-        poso: 0,
-        pliroteo: 0,
+        grossAmount: 0,
+        employeeInsuranceAmount: 0,
+        employerInsuranceAmount: 0,
+        paidAmount: 0
     }
-    constructor(public user: User,  public router: Router,) {
+
+
+    constructor(public user: User,  public router: Router, public invoices: Invoices) {
 
 
 
@@ -53,9 +65,11 @@ export class CalculatorComponent implements OnInit {
     }
     onSubmit(f: NgForm) {
         console.log(f.value.first);
-        this.model.ika = parseInt(f.value.first ) / 5;
-        console.log(f.value);  // { first: '', last: '' }
-        console.log(f.valid);  // false
+        this.invoices.calculateAmounts(parseInt(f.value.first))
+            .subscribe((res:any) => {
+                this.model = res;
+
+            });
     }
 
 }

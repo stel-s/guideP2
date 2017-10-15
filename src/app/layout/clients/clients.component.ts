@@ -15,6 +15,8 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/skip';
+
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
@@ -80,8 +82,9 @@ export class ClientsComponent implements  OnInit {
             flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
         }
     ];
-
-
+    form = new FormControl();
+    checked;
+    selected;
     constructor(
                 private modalService: NgbModal,
                 private fb:FormBuilder,
@@ -116,9 +119,20 @@ export class ClientsComponent implements  OnInit {
     }
     dataSource2: PetDataSource;
 
+    selectAll(event) {
+        // console.log(event);
+        // this.selected = true;
+    }
     ngOnInit() {
         // this.dataSource = new PetDataSource(this.myPets);
+        let init = true;
 
+        this.form.valueChanges.skip(1)
+            .subscribe((change) => {
+                console.log(change);
+
+            });
+        this.checked = true;
 
         this.customer.getAll()
             .subscribe((res:any) => {

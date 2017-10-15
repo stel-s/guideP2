@@ -3,9 +3,12 @@ import { Api } from './api/api';
 import { Settings } from './settings/settings';
 import { User } from './user/user';
 import { Customer } from './customer/customer';
+import { Invoices } from './invoices/invoices';
+
 export {
     Api,
     Customer,
     Settings,
-    User
+    User,
+    Invoices
 };
