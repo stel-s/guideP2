@@ -155,15 +155,7 @@ export class User {
 
 
     updateProfile(profile: any) {
-        console.log(profile)
-        let options = new RequestOptions();
-        let myHeaders = new Headers();
-        myHeaders.append('Authorization', 'Bearer ' + this.token);
-        myHeaders.get('Content-Type');
-        options.headers = myHeaders;
-
-
-        let seq = this.api.post(this.url + '/gocore/user/update/guide', profile, this.getToken()).share();
+       let seq = this.http.post(this.url + '/gocore/user/update/guide', profile, this.getToken()).share();
 
         // seq
         //   .map(res => res)
