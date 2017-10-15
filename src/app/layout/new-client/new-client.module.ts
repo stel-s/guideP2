@@ -7,14 +7,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NewClientRoutingModule } from './new-client-routing.module';
 import { NewClientComponent } from './new-client.component';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { MdButtonModule, MdCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { ForbiddenValidatorDirective } from './forbidden-name.directive';
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
-  imports: [MdButtonModule,
-      MdCheckboxModule,
+  imports: [MatButtonModule,
+      MatCheckboxModule,
       CommonModule,
       NewClientRoutingModule,
       FileUploadModule,

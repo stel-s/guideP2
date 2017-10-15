@@ -7,17 +7,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { MdButtonModule, MdCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
 ///
 import {
-    MdAutocompleteModule,
+    MatAutocompleteModule,
 }from '@angular/material'
 @NgModule({
   imports: [
-      MdButtonModule,
-      MdCheckboxModule,
+      MatButtonModule,
+      MatCheckboxModule,
       CommonModule,
       SearchRoutingModule,
       FileUploadModule,
@@ -26,7 +26,7 @@ import {
       ReactiveFormsModule,
       // Specify AvatarModule as an import
       AvatarModule,
-      MdAutocompleteModule
+      MatAutocompleteModule
   ],
   declarations: [SearchComponent],
     exports:[SearchComponent]

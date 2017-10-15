@@ -7,15 +7,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CalculatorRoutingModule } from './calculator-routing.module';
 import { CalculatorComponent } from './calculator.component';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { MdButtonModule, MdCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { ForbiddenValidatorDirective } from './forbidden-name.directive';
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
 import { BsComponentModule } from '../bs-component/bs-component.module'
 
 @NgModule({
-  imports: [MdButtonModule,
-      MdCheckboxModule,
+  imports: [MatButtonModule,
+      MatCheckboxModule,
       CommonModule,
       CalculatorRoutingModule,
       FileUploadModule,

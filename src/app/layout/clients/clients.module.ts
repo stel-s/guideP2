@@ -4,7 +4,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {CdkTableModule} from '@angular/cdk/table';
-import {MdTableModule} from '@angular/material';
+import {MatTableModule} from '@angular/material';
 
 import { ClientsRoutingModule } from './clients-routing.module';
 import { ClientsComponent } from './clients.component';
@@ -14,13 +14,13 @@ import { NewClientModule } from '../new-client/new-client.module';
 
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import {
-    MdButtonModule,
-    MdCheckboxModule,
-    MdMenuModule,
-    MdSelectModule,
-    MdAutocompleteModule,
-    MdSliderModule,
-    MdSlideToggleModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatSliderModule,
+    MatSlideToggleModule,
 } from '@angular/material';
 // Import your AvatarModule
 import { AvatarModule } from 'ngx-avatar';
@@ -28,11 +28,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchModule } from '../search-component/search.module'
 @NgModule({
   imports: [
-      MdSliderModule,
-      MdSlideToggleModule,
-      MdAutocompleteModule,
-      MdButtonModule,
-      MdCheckboxModule,
+      MatSliderModule,
+      MatSlideToggleModule,
+      MatAutocompleteModule,
+      MatButtonModule,
+      MatCheckboxModule,
       CommonModule,
       ClientsRoutingModule,
       FileUploadModule,
@@ -41,10 +41,10 @@ import { SearchModule } from '../search-component/search.module'
       ReactiveFormsModule,
       // Specify AvatarModule as an import
       AvatarModule,
-      MdSelectModule,
+      MatSelectModule,
       CdkTableModule,
-      MdTableModule,
-      MdMenuModule,
+      MatTableModule,
+      MatMenuModule,
       NgbModule.forRoot(),
       SearchModule,
       NewClientModule

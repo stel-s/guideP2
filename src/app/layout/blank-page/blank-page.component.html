@@ -50,44 +50,44 @@
                     <!--class="alert alert-danger">-->
                         <!--firstName is required-->
                     <!--</div>-->
-                    <md-form-field class="example-full-width">
-                        <input #firstName="ngModel" required [(ngModel)]="profile.firstName" name="firstName" mdInput placeholder="Ονομα" value="">
-                    </md-form-field>
-                    <md-form-field class="example-full-width">
-                        <input mdInput placeholder="Επίθετο"  required [(ngModel)]="profile.lastName" name="lastName" value="">
-                    </md-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input #firstName="ngModel" required [(ngModel)]="profile.firstName" name="firstName" matInput placeholder="Ονομα" value="">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Επίθετο"  required [(ngModel)]="profile.lastName" name="lastName" value="">
+                    </mat-form-field>
                 </div>
             </div>
             <div style="display:flex">
                 <div class="form-group">
-                    <md-form-field class="example-full-width">
+                    <mat-form-field class="example-full-width">
                         <input
                                 forbiddenName=""
                                  #vatNumber="ngModel"
                                  [(ngModel)]="profile.vatNumber"
                                  name="vatNumber"
-                                 mdInput
+                                 matInput
                                  placeholder="ΑΦΜ"
                                  >
-                    </md-form-field>
-                    <md-form-field class="example-full-width">
-                        <input mdInput
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput
                                #amIKA="ngModel"
                                required [(ngModel)]="profile.amIKA" name="amIKA"
                                placeholder="ΑΜΚΑ" value="">
-                    </md-form-field>
+                    </mat-form-field>
 
                 </div>
 
             </div>
             <div style="display:flex">
                 <div class="form-group">
-                    <md-form-field class="example-full-width">
-                        <input mdInput [(ngModel)]="profile.guideNumber" name="guideNumber" placeholder="guideNumber" value="">
-                    </md-form-field>
-                    <md-form-field class="example-full-width">
-                        <input mdInput placeholder="municipality" [(ngModel)]="profile.municipality"  name="municipality" value="">
-                    </md-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput [(ngModel)]="profile.guideNumber" name="guideNumber" placeholder="guideNumber" value="">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="municipality" [(ngModel)]="profile.municipality"  name="municipality" value="">
+                    </mat-form-field>
                     <!--<label>Διεθυνση</label>-->
                     <!--<input type="text" required [(ngModel)]="profile.street" name="street"-->
                     <!--class="form-control input-underline input-lg"-->
@@ -109,12 +109,12 @@
             </div>
             <div style="display:flex">
                 <div class="form-group">
-                    <md-form-field class="example-full-width">
-                        <input mdInput [(ngModel)]="profile.street" name="street" placeholder="Διέθυνση" value="">
-                    </md-form-field>
-                    <md-form-field class="example-full-width">
-                        <input mdInput [(ngModel)]="profile.streetNumber" placeholder="αρ." value="" name="streetNumber">
-                    </md-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput [(ngModel)]="profile.street" name="street" placeholder="Διέθυνση" value="">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput [(ngModel)]="profile.streetNumber" placeholder="αρ." value="" name="streetNumber">
+                    </mat-form-field>
                     <!--<label>Διεθυνση</label>-->
                     <!--<input type="text" required [(ngModel)]="profile.street" name="street"-->
                            <!--class="form-control input-underline input-lg"-->
@@ -127,18 +127,18 @@
             </div>
             <div style="display:flex">
                 <div class="form-group">
-                    <md-form-field class="example-full-width">
-                        <input mdInput [(ngModel)]="profile.telephone" name="telephone" placeholder="telephone" value="">
-                    </md-form-field>
-                    <md-form-field class="example-full-width">
-                        <input mdInput placeholder="amka" [(ngModel)]="profile.amka"  name="amka" value="">
-                    </md-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput [(ngModel)]="profile.telephone" name="telephone" placeholder="telephone" value="">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="amka" [(ngModel)]="profile.amka"  name="amka" value="">
+                    </mat-form-field>
                 </div>
             </div>
         </div>
-        <button md-button>ενημέρωση</button>
+        <button type="submit" mat-button>Ενημέρωση</button>
         <!--<button type="button" class="btn btn-default" (click)=" signupForm.reset()">New Hero</button>-->
-        <button class="btn rounded-btn" type="submit"> Ενημέρωση</button>
+        <!--<button class="btn rounded-btn" type="submit"> Ενημέρωση</button>-->
     </form>
     <div class="col-lg-6">
         <input type="file" class="" #fileInput placeholder="Upload file..."/>
