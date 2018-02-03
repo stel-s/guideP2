@@ -48,6 +48,7 @@ export class SearchComponent {
         this.myForm = fb.group({
             'search': [''],
         });
+        
         this.myForm.valueChanges.subscribe(res => console.log(res))
     }
 

@@ -75,7 +75,7 @@ export class User {
         return this._user.firstName;
     }
 
-    S
+
 
     isAvailable(term: string) {
         let seq = this.api.get(`gocore/user/isAvailable/email/${term}`).map((res: any) => res)
@@ -135,22 +135,22 @@ export class User {
         }
         let seq = this.http.get(this.url + '/gocore/user/private/info', this.getToken());
 
-        seq
-            .map((res: any) => res)
-            .catch(e => {
-                if (e.status === 401) {
-                    return Observable.throw('Unauthorized');
-                }
-                // do any other checking for statuses here
-            })
-            .subscribe(res => {
-                if (res) {
-                    this.profile = res;
-                    this.currentUser.next(this.profile)
-                }
-            });
+        // seq
+        //     .map((res: any) => res)
+        //     .catch(e => {
+        //         if (e.status === 401) {
+        //             return Observable.throw('Unauthorized');
+        //         }
+        //         // do any other checking for statuses here
+        //     })
+        //     .subscribe(res => {
+        //         if (res) {
+        //             this.profile = res;
+        //             this.currentUser.next(this.profile)
+        //         }
+        //     });
 
-        return seq.map((res: any) => res);
+        return seq
     }
 
 
@@ -172,14 +172,9 @@ export class User {
     }
 
     updateAvatar(avatar) {
-        let options = new RequestOptions();
-        let myHeaders = new Headers();
-        myHeaders.append('Authorization', 'Bearer ' + this.token);
-        myHeaders.get('Content-Type');
-        options.headers = myHeaders;
         let req = {"contentType": "image/png", "fileData": avatar};
-        let seq = this.http.post(this.url + '/gocore/user/upload/avatar', req, this.getToken()).share();
 
+        let seq = this.http.post(this.url + '/gocore/user/upload/avatar', req, this.getToken()).share();
 
         return seq;
     }

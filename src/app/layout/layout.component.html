@@ -1,5 +1,12 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
 <section class="main-container">
-    <router-outlet></router-outlet>
+    <router-outlet>
+        <chart type="StockChart" [options]="options"  (load)="saveInstance($event.context)"></chart>
+    </router-outlet>
 </section>
+
+
+
+
+

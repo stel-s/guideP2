@@ -1,46 +1,13 @@
 
+<div class="container">
 
-<!--<form [formGroup]="heroForm" #formDir="ngForm" >-->
-      <!--<label for="name">Name</label>-->
-    <!--<input id="name" class="form-control"-->
-           <!--formControlName="name" required >-->
-
-    <!--<div *ngIf="name.invalid && (name.dirty || name.touched)"-->
-         <!--class="alert alert-danger">-->
-    <!--</div>-->
-
-<!--</form>-->
-<div class="row" style="margin-bottom: 30px">
-    <ngx-avatar name="{{profile.firstName || 's'}}s {{profile.lastName || 's'}}"></ngx-avatar>
-</div>
-<div class="row">
-
-<br />
-
-
-    <form role="form" #profileForm="ngForm" (ngSubmit)="update(profileForm)">
-
-        <!--<div class="form-group row">-->
-            <!--<label for="example-text-input" class="col-2 col-form-label">Text</label>-->
-            <!--<div class="col-10">-->
-                <!--<input type="text" required class="form-control"-->
-                       <!--[(ngModel)]="profile.vatNumber"-->
-                       <!--name="ΑΦΜ"-->
-                       <!--#afm="ngModel"-->
-                       <!--forbiddenName="bob"-->
-                       <!--class="form-control input-underline input-lg"-->
-                       <!--id="example-text-input" placeholder="ΑΦΜ">-->
-
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="form-group row">-->
-            <!--<label for="example-search-input" class="col-2 col-form-label">Search</label>-->
-            <!--<div class="col-10">-->
-                <!--<input class="form-control" type="search" value="How do I shoot web" id="example-search-input">-->
-            <!--</div>-->
-        <!--</div>-->
+    <div class="row" style="margin-bottom: 30px">
+        <ngx-avatar (mouseenter) ="mouseEnter('div a') " *ngIf="!profile.avatar.fileData" name="{{profile.firstName || 'N'}}s {{profile.lastName || 'U'}}" size="150" [round]="true"></ngx-avatar>
+        <ngx-avatar (mouseenter) ="mouseEnter('div a') "   *ngIf="profile.avatar.fileData" src="data:image/jpeg;base64,{{profile.avatar.fileData}}" size="150" [round]="true"></ngx-avatar>
+        <mat-icon *ngIf="edit" (click)="clearAvatar()">delete</mat-icon>
+    </div>
+    <form role="form" #profileForm="ngForm" (ngSubmit)="update(profileForm)" (mouseEnter) ="mouseLeave('div a') ">
         <div class="form-content">
-
             <div style="display:flex">
                 <div class="form-group ">
                     <!--<label>firstName</label>-->
@@ -136,21 +103,15 @@
                 </div>
             </div>
         </div>
-        <button type="submit" mat-button>Ενημέρωση</button>
+        <button type="submit" mat-button style="border: 1px solid;width: 128px;margin-left: 20px;display: inline-block;">Ενημέρωση</button>
         <!--<button type="button" class="btn btn-default" (click)=" signupForm.reset()">New Hero</button>-->
-        <!--<button class="btn rounded-btn" type="submit"> Ενημέρωση</button>-->
     </form>
-    <div class="col-lg-6">
+    <div class="col-lg-6"  style="display: flex;flex-direction: column;">
         <input type="file" class="" #fileInput placeholder="Upload file..."/>
-        <img *ngIf="profile.avatar" height="100" width="100" class="img rounded img-thumbnail" src="data:image/jpeg;base64,{{profile.avatar.fileData}}" alt="" class="img-thumbnail">
-
+        <img *ngIf="profile.avatar" height="100" width="100" style="align-self: center;margin-bottom: 100px;"
+             class="img rounded img-thumbnail" src="data:image/jpeg;base64,{{profile.avatar.fileData}}"
+             alt=""
+             class="img-thumbnail">
         <button class="btn rounded-btn"  type="button" (click)="upload()">Upload</button>
     </div>
 </div>
-<!--<div class="search-content">-->
-    <!--<input maxlength="100" autocomplete="off" name="keyword" type="text" class="form-control search-input" placeholder="Searching...">-->
-    <!--<div id="token-search"><div class="grecaptcha-badge" style="width: 256px; height: 60px; transition: right 0.3s ease; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px;"><div class="grecaptcha-logo"><iframe src="https://www.google.com/recaptcha/api2/anchor?k=6LdXaBkUAAAAAF7rfe4tb17Enf6_rwA51rK8Ckze&amp;co=aHR0cHM6Ly9nb3N0cmVhbS5pczo0NDM.&amp;hl=en&amp;v=r20170925162623&amp;size=invisible&amp;cb=kfu2705dyovz" title="recaptcha widget" width="256" height="60" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response-1" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; "></textarea></div></div>-->
-    <!--<a onclick="searchMovie()" class="search-submit" href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a>-->
-
-    <!--<div class="search-suggest" id="search-suggest-menu" style="display: none;"></div>-->
-<!--</div>-->

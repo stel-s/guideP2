@@ -77,7 +77,7 @@ export class BlankPageComponent implements OnInit {
     myGroup = new FormGroup({
         file: new FormControl()
     });
-
+    edit= false;
     constructor(public user: User,
                 public router: Router,
                 public toastr: ToastsManager,
@@ -90,7 +90,9 @@ export class BlankPageComponent implements OnInit {
     }
     update(profileForm) {
         let payload = profileForm.form.value;
+
         console.log(profileForm.form.value)
+
         let obj = {
             "guideNumber": "123456789",
             "amka": "22222112",
@@ -99,13 +101,29 @@ export class BlankPageComponent implements OnInit {
             "municipality": "Dafni",
             "postcode":"17445"
         };
+
         payload = Object.assign({},payload,obj);
+
         this.user.updateProfile(payload).subscribe((res => {
             this.toastr.success('Profile', 'Saved!');
             this.user.currentUser.next({firstName: payload.firstName, lastName: payload.lastName})
         }));
     }
 
+    mouseEnter(){
+        this.edit = true
+    }
+
+    mouseLeave(){
+        this.edit = false
+    }
+
+    clearAvatar(){
+        this.profile.avatar.fileData = null;
+        this.user.updateAvatar("").subscribe(res => {
+            // do stuff wmy uploaded file
+        });
+    }
     ngOnInit(): void {
         this.profile = {
             firstName: undefined,
@@ -124,13 +142,13 @@ export class BlankPageComponent implements OnInit {
             this.avatarPreviewSrc =  this.profile.fileData;
         }, (err) => {
 
-        }
-        );
+        });
+
         this.heroForm.valueChanges
             .debounceTime(1000)
             .subscribe(data => {
                 console.log('Form changes', data)
-            })
+            });
 
     }
 
