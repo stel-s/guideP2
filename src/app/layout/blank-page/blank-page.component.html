@@ -6,7 +6,7 @@
         <ngx-avatar (mouseenter) ="mouseEnter('div a') "   *ngIf="profile.avatar.fileData" src="data:image/jpeg;base64,{{profile.avatar.fileData}}" size="150" [round]="true"></ngx-avatar>
         <mat-icon *ngIf="edit" (click)="clearAvatar()">delete</mat-icon>
     </div>
-    <form role="form" #profileForm="ngForm" (ngSubmit)="update(profileForm)" (mouseEnter) ="mouseLeave('div a') ">
+    <form role="form" #profileForm="ngForm" (ngSubmit)="update(profileForm)" (mouseEnter) ="mouseLeave()">
         <div class="form-content">
             <div style="display:flex">
                 <div class="form-group ">

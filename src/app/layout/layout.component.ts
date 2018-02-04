@@ -77,7 +77,7 @@ export class LayoutComponent implements OnInit {
 
 
         console.log(this.options.series)
-        this.client = io('http://localhost:5000');
+        this.client = io('http://ec2-54-175-204-225.compute-1.amazonaws.com:5000');
 
 
 
@@ -125,7 +125,7 @@ export class LayoutComponent implements OnInit {
             //         data: [29.9, 71.5, 106.4, 129.2,129.9, 171.5, 1106.4, 1129.2],
             //     }]
             // }{
-
+            console.log(new Date(data.timestamp).toLocaleString());
           this.chart.series[0].addPoint({x: data.timestamp , y: data.value})
             //  this.options.series[0].data.push(data.value)
             // this.options = Object.assign({},this.options)

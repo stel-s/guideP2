@@ -2,6 +2,7 @@
 <app-sidebar></app-sidebar>
 <section class="main-container">
     <router-outlet>
+                <img src="anelixis.png" width=410 height=98>
         <chart type="StockChart" [options]="options"  (load)="saveInstance($event.context)"></chart>
     </router-outlet>
 </section>
