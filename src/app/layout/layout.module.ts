@@ -9,7 +9,17 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { HeaderComponent, SidebarComponent } from '../shared';
 import { NewClientComponent } from './new-client/new-client.component';
+declare var require : any;
 
+export function highchartsFactory() {
+    const highcharts = require('highcharts');
+    const highChartsMore = require('highcharts/highcharts-more');
+    const solidGauge = require('highcharts/modules/solid-gauge');
+    ChartModule.forRoot(require('highcharts'),
+        require('highcharts/highcharts-more'),
+        require('highcharts/modules/solid-gauge'));
+    return highcharts;
+}
 @NgModule({
     imports: [
         CommonModule,

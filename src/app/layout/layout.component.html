@@ -8,6 +8,7 @@
         </div>
 
         <chart type="StockChart" [options]="options"  (load)="saveInstance($event.context)"></chart>
+        <chart  [options]="options2"  (load)="saveInstance2($event.context)"></chart>
         current value : {{ current }}
     </router-outlet>
 </section>

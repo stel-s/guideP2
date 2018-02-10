@@ -44,10 +44,13 @@ export function highchartsFactory() {
     const dd = require('highcharts/modules/drilldown');
     const ex = require('highcharts/modules/exporting');
     const st = require('highcharts/modules/stock');
-
+    const sg = require('highcharts/modules/solid-gauge');
+    const highChartsMore = require('highcharts/highcharts-more');
     dd(hc);
     ex(hc);
     st(hc);
+    highChartsMore(hc);
+    sg(hc)
     return hc;
 }
 @NgModule({
