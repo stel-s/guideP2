@@ -2,12 +2,7 @@
 <app-sidebar></app-sidebar>
 <section class="main-container">
     <router-outlet>
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
-            <chart type="StockChart" [options]="options"  (load)="saveInstance($event.context)"></chart>
-        </div>
-
-
-
+        <chart type="StockChart" [options]="options"  (load)="saveInstance($event.context)"></chart>
     </router-outlet>
 </section>
 
