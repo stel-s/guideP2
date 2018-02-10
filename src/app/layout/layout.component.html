@@ -2,7 +2,13 @@
 <app-sidebar></app-sidebar>
 <section class="main-container">
     <router-outlet>
+
+        <!--<div style="display:flex">-->
+            <!--<img src="/assets/images/anelixis2.png" width=410 height=98>-->
+        <!--</div>-->
+
         <chart type="StockChart" [options]="options"  (load)="saveInstance($event.context)"></chart>
+        current value : {{ current }}
     </router-outlet>
 </section>
 

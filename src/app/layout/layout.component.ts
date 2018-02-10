@@ -27,6 +27,7 @@ export class LayoutComponent implements OnInit {
     options: any;
     client:any;
     chart : any;
+    public current;
     constructor(public router: Router) {
         this.options = {
             name: "factory data",
@@ -127,7 +128,8 @@ export class LayoutComponent implements OnInit {
             // }{
             console.log(new Date(data.timestamp).toLocaleString());
             this.chart.setSize(800, 500);
-          this.chart.series[0].addPoint({x: data.timestamp , y: data.value})
+            this.chart.series[0].addPoint({x: data.timestamp , y: data.value})
+            this.current = data.value;
             //  this.options.series[0].data.push(data.value)
             // this.options = Object.assign({},this.options)
             // console.log(this.options);
