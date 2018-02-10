@@ -3,9 +3,9 @@
 <section class="main-container">
     <router-outlet>
 
-        <!--<div style="display:flex">-->
-            <!--<img src="/assets/images/anelixis2.png" width=410 height=98>-->
-        <!--</div>-->
+        <div style="">
+            <img src="/assets/images/anelixis2.png" width=410 height=auto>
+        </div>
 
         <chart type="StockChart" [options]="options"  (load)="saveInstance($event.context)"></chart>
         current value : {{ current }}
