@@ -35,7 +35,14 @@ export class LoginComponent implements OnInit {
     vcr: ViewContainerRef
 
   ) {
-    this.toastr.setRootViewContainerRef(vcr);
+    this.toastr.setRootViewContainerRef(vcr)
+      afAuth.authState;
+      firebase.initializeApp({apiKey: "AIzaSyC6RyUM5qmMgspMQeARqJzNbZwDF6-UHXA",
+          authDomain: "anelixis-4af61.firebaseapp.com",
+          databaseURL: "https://anelixis-4af61.firebaseio.com",
+          projectId: "anelixis-4af61",
+          storageBucket: "anelixis-4af61.appspot.com",
+          messagingSenderId: "862108583603"})
 
   }
 
@@ -56,7 +63,38 @@ export class LoginComponent implements OnInit {
   }
 
     login(f) {
-        this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      var self = this;
+      let email,password
+        email = "stelios@gmail.com";
+            password = "password";
+
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(error)
+
+            // ...
+        });
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                self.router.navigate(['/dashboard']);
+
+
+                localStorage.setItem('isLoggedin', 'true');
+            } else {
+                // No user is signed in.
+            }
+        });
+
+        // firebase.auth().createUserWithEmailAndPassword(email = "stelios@gmail.com", password = "password").catch(function(error) {
+        //     // Handle Errors here.
+        //     var errorCode = error.code;
+        //     var errorMessage = error.message;
+        //     console.log(error)
+        //
+        // });
+        // this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     }
 
   doLogin(user: Login) {
