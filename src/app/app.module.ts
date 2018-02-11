@@ -18,7 +18,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { AvatarModule } from 'ngx-avatar';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 
+import { AngularFireModule} from 'angularfire2';
 ////
 import { Settings } from './providers/providers';
 import { User } from './providers/providers';
@@ -35,6 +37,14 @@ import { NoopInterceptor } from './interceptors/NoopInterceptor'
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import { SharedModule } from "./shared/shared.module";
 
+export const firebaseConfig = {
+    apiKey: "AIzaSyC6RyUM5qmMgspMQeARqJzNbZwDF6-UHXA",
+    authDomain: "anelixis-4af61.firebaseapp.com",
+    databaseURL: "https://anelixis-4af61.firebaseio.com",
+    projectId: "anelixis-4af61",
+    storageBucket: "anelixis-4af61.appspot.com",
+    messagingSenderId: "862108583603"
+};
 declare var require: any;
 
 
@@ -74,7 +84,8 @@ export function HttpLoaderFactory(http: Http) {
         AppComponent
     ],
     imports: [
-
+        AngularFireModule.initializeApp(firebaseConfig, 'my-app'),
+        AngularFireAuthModule,
         CommonModule,
         AvatarModule,
         PlunkerMaterialModule,

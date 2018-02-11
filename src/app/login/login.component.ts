@@ -2,10 +2,11 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { NgForm } from '@angular/forms';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { User } from '../providers/providers';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-
+import * as firebase from 'firebase';
 import { JwtHelper } from "angular2-jwt";
 
 export class Login {
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
   token: string;
   jwtHelper = new JwtHelper();
 
-  constructor(public router: Router, public user: User,
+  constructor(public afAuth: AngularFireAuth, public router: Router, public user: User,
     public toastr: ToastsManager,
     vcr: ViewContainerRef
 
@@ -54,10 +55,9 @@ export class LoginComponent implements OnInit {
     this.toastr.warning('You are being warned.', 'Alert!');
   }
 
-  login(form: NgForm) {
-    this.doLogin(this.model);
-    this.router.navigateByUrl('/login');
-  }
+    login(f) {
+        this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    }
 
   doLogin(user: Login) {
     //let loading = this.loadingCtrl.create({content : "Logging in ,please wait..."});

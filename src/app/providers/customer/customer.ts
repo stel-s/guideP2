@@ -63,7 +63,7 @@ export class Customer {
         let seq = this.http.post(this.url + '/gocore/customer/createOrUpdate', customer, this.getToken()).share();
         return seq;
     }
-     getToken() {
+    getToken() {
         return {  headers: new HttpHeaders().set('Authorization', 'Bearer ' +   localStorage.getItem('token'))}
     }
     deleteCustomer(uuid) {
