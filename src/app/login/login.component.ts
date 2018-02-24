@@ -75,7 +75,8 @@ export class LoginComponent implements OnInit {
         });
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-               // self.router.navigate(['/dashboard']);
+                console.log(user);
+               self.router.navigate(['/dashboard']);
 
 
                 localStorage.setItem('isLoggedin', 'true');
